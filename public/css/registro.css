@@ -1,0 +1,75 @@
+body{
+	font-family: 'Kodchasan', sans-serif;
+}
+header{
+	color: white;
+	font-size: 60px;
+}
+
+header label{
+	font-size: 40px;
+}
+
+#sesion{
+ 	margin-left: 5em;
+}
+
+#cuenta{
+	font-size: 50px;
+	margin-left: 150px;
+}
+
+.datos{
+	margin-top: 40px;
+	margin-left: 150px;
+}
+.datos label{
+	font-size: 35px;
+}
+
+.cuadros-datos{
+	margin-left: 580px;
+	margin-top: -430px;
+
+}
+
+input{
+	font-size: 33px;
+}
+
+select{
+	font-size: 33px;
+}
+
+#celular{
+	width: 327px;
+}
+
+#h{
+	width: 20px;
+	height: 20px;
+}
+
+#m{
+	width: 20px;
+	height: 20px;
+}
+
+#hombre{
+	font-size: 35px;
+}
+
+#mujer{
+	font-size: 35px;
+}
+
+#siguiente{
+	background: #a163bd;
+	color: white;
+	margin-left: 1000px;
+	font-size: 35px;
+	margin-top: -50px;
+	width: 250px;
+	font-family: 'Kodchasan', sans-serif;
+}
+

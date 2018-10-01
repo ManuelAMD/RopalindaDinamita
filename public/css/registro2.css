@@ -1,0 +1,64 @@
+body{
+	font-family: 'Kodchasan', sans-serif;
+}
+header{
+	color: white;
+	font-size: 60px;
+}
+
+header label{
+	font-size: 40px;
+}
+
+#titulo{
+	font-size: 40px;
+	margin-left: 250px;
+}
+
+.datos{
+	margin-top: 40px;
+	margin-left: 230px;
+}
+.datos label{
+	font-size: 25px;
+}
+
+.cuadros-datos{
+	margin-left: 430px;
+	margin-top: -400px;
+
+}
+
+input{
+	font-size: 23px;
+	width: 500px;
+}
+
+#exttxt{
+	width: 150px;
+}
+
+#inttxt{
+	width:170px;
+	margin-left: 170px;
+	margin-top: -350px;
+}
+
+#fin{
+	background: #a163bd;
+	color: white;
+	margin-left: 1000px;
+	font-size: 35px;
+	margin-top: -1px;
+	width: 250px;
+	font-family: 'Kodchasan', sans-serif;
+}
+
+#int{
+	margin-left: 190px;
+	margin-bottom: 400px;
+}
+
+#cp{
+	width: 250px;
+}

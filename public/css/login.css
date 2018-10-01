@@ -1,0 +1,57 @@
+body{
+	font-size: 16px;
+	max-width: 1024px;
+	font-family: 'Kodchasan', sans-serif;
+}
+
+.hpanel{
+	margin-left: 240px;
+}
+
+.login{
+	margin-top: -40px;
+}
+
+h3{
+	font-size: 50px;
+}
+
+label{
+	font-size: 30px;
+
+}
+
+.correo{
+	margin-right: 135px;
+}
+
+.clave{
+	margin-right: 235px;
+}
+
+#username{
+	font-size: 30px;
+	border-radius: 5px;
+	width: 420px;
+}
+
+#password{
+	font-size: 30px;
+	border-radius: 5px;
+	width: 420px;
+}
+
+button{
+	font-size: 30px;
+	border-radius: 5px;
+	color: white;
+	width: 420px;
+}
+
+.login2{
+	margin-top: 20px;
+}
+
+.registro{
+	margin-bottom: 30px;
+}
