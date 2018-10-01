@@ -2,10 +2,11 @@
 Create database RopaLinda
 
 Use RopaLinda
-
+--drop database RopaLinda
 --Creación de tablas
-drop table Usuario
+--drop table Usuario
 Create table Usuario(
+id int identity (20000,1) Not null,
 rfc char(13) NOT NULL,
 apellido varchar(50) NOT NULL,
 nombre varchar(50) NOT NULL,
@@ -21,12 +22,13 @@ estado varchar(15) NOT NULL,
 municipio varchar(15) NOT NULL,
 correo varchar(320) NOT NULL,
 contraseña BINARY(64) NOT NULL,
+sexo CHAR(1) NOT NULL,				-- H o M
 pendiente BIT NOT NULL,             -- BIT RECIBE 0 o 1, en cuanto se hace un registro mandarlo como 1
 rechazado BIT NOT NULL,				-- BIT RECIBE 0 o 1, en cuanto se hace un registro mandarlo como 0
 Tipo INT NOT NULL
 )
 ALTER TABLE Usuario
-ADD CONSTRAINT PK_Usuario PRIMARY KEY (rfc);
+ADD CONSTRAINT PK_Usuario PRIMARY KEY (id,correo);
 
 --Procedimiento Para registrar un cliente
 --drop procedure RegistroUsuario
@@ -45,34 +47,35 @@ CREATE PROCEDURE RegistroUsuario
 	@estado VARCHAR(15),
 	@municipio VARCHAR(15),
 	@correo VARCHAR(320),
-	@contraseña VARCHAR(100)
+	@contraseña VARCHAR(100),
+	@sexo CHAR(1)
 AS
 BEGIN
 	--Validar si el usuario ya existe y esta pendiente de revisión
-	IF EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc AND pendiente=1)
+	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND pendiente=1)
 	BEGIN
 		RAISERROR('Usuario pendiente de revisión',10,1);
 		RETURN 0
 	END
 
 	--Validar si el usuario ya fue rechazado
-	IF EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc AND rechazado=1)
+	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND rechazado=1)
 	BEGIN
 		RAISERROR('Usuario rechazado',10,2);
 		RETURN 0
 	END
 
 	--Validar si el usuario existe
-	IF EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc)
+	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
 	BEGIN
 		RAISERROR('Usuario ya registrado',10,3);
 		RETURN 0
 	END
 
     BEGIN TRY
-			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,pendiente,rechazado,tipo)
+			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,sexo,pendiente,rechazado,tipo)
 			VALUES(@rfc,@apellido,@nombre,@codigoPostal,@colonia,@calle,@numExterior,@numInterior,@celular,@fechaNac,@pais,@estado,
-			@municipio,@correo, HASHBYTES('SHA2_512', @contraseña),1,0,111)
+			@municipio,@correo, HASHBYTES('SHA2_512', @contraseña),@sexo,1,0,111)
 			PRINT ('Has sido registrado');
 			RETURN 1
     END TRY
@@ -98,7 +101,8 @@ EXEC RegistroUsuario
 	@estado = 'Sinaloa',
 	@municipio = 'Culiacan',
 	@correo = 'josemanuellopez_19@hotmail.com',
-	@contraseña = 'admin123'
+	@contraseña = 'admin123',
+	@sexo = 'H'
 
 EXEC RegistroUsuario
     @rfc = 'LOME971123HSL',
@@ -115,7 +119,8 @@ EXEC RegistroUsuario
 	@estado = 'Sinaloa',
 	@municipio = 'Culiacan',
 	@correo = 'miguelernesto_23@hotmail.com',
-	@contraseña = 'admin123'
+	@contraseña = 'admin123',
+	@sexo = 'H'
 
 EXEC RegistroUsuario
     @rfc = 'LOMJ020831HSL',
@@ -132,7 +137,8 @@ EXEC RegistroUsuario
 	@estado = 'Sinaloa',
 	@municipio = 'Culiacan',
 	@correo = 'chuy04@hotmail.com',
-	@contraseña = 'admin123'
+	@contraseña = 'admin123',
+	@sexo = 'H'
 -----------------------------------------------------------------
 SELECT * FROM Usuario
 -----------------------------------------------------------------
@@ -146,20 +152,21 @@ CREATE PROCEDURE RegistroAdmDis
 	@fechaNac DATETIME,
 	@correo VARCHAR(320),
 	@contraseña VARCHAR(100),
+	@sexo CHAR(1),
 	@tipo INT
 AS
 BEGIN
 	--Validar si el usuario existe
-	IF EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc)
+	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
 	BEGIN
 		RAISERROR('Usuario ya registrado',10,3);
 		RETURN 0
 	END
 
     BEGIN TRY
-			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,pendiente,rechazado,tipo)
+			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,sexo,pendiente,rechazado,tipo)
 			VALUES(@rfc,@apellido,@nombre,0,'','',0,0,@celular,@fechaNac,'','',
-			'',@correo, HASHBYTES('SHA2_512', @contraseña),0,0,@tipo)
+			'',@correo, HASHBYTES('SHA2_512', @contraseña),@sexo,0,0,@tipo)
 			PRINT ('Has sido registrado');
 			RETURN 1
     END TRY
@@ -179,7 +186,8 @@ EXEC RegistroAdmDis
 	@fechaNac = '1995-12-02',
 	@correo = 'manyalex@hotmail.com',
 	@contraseña = 'many',
-	@tipo = 999  
+	@tipo = 999 ,
+	@sexo = 'H'
 
 --DISEÑADORA
 EXEC RegistroAdmDis
@@ -190,27 +198,28 @@ EXEC RegistroAdmDis
 	@fechaNac = '1994-02-26',
 	@correo = 'ma_fer_945@hotmail.com',
 	@contraseña = 'fer',
-	@tipo = 444
+	@tipo = 444,
+	@sexo = 'M'
 
 Select * from Usuario where Tipo<>111
 -----------------------------------------------------------------
 --drop procedure AceptaUsuario
 CREATE PROCEDURE AceptaUsuario
-	@rfc char(13)
+	@correo varchar(320)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc)
+	IF NOT EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
 	BEGIN
 			RAISERROR('Usuario no existente',10,1)
 			RETURN 0	
 	END
 	BEGIN TRAN 
-		IF EXISTS ( SELECT rfc FROM Usuario  WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE rfc = @rfc)  
+		IF EXISTS ( SELECT correo FROM Usuario  WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE correo = @correo)  
 		BEGIN
 			UPDATE Usuario																
 			SET pendiente = 0,
 				rechazado = 0																		
-			WHERE rfc = @rfc
+			WHERE correo = @correo
 			PRINT('Cliente aceptado con exito')	
 		END
 	COMMIT TRAN
@@ -218,27 +227,27 @@ BEGIN
 END
 
 EXEC AceptaUsuario
-	@rfc='LOMJ020831HSL'
+	@correo='chuy04@hotmail.com'
 
-SELECT * FROM Usuario WHERE rfc='LOMJ020831HSL'
+SELECT * FROM Usuario WHERE correo='chuy04@hotmail.com'
 -----------------------------------------------------------------
 --drop procedure RechazaUsuario
 CREATE PROCEDURE RechazaUsuario
-	@rfc CHAR(13)
+	@correo varchar(320)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc)
+	IF NOT EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
 	BEGIN
 			RAISERROR('Usuario no existente',10,1)
 			RETURN 1		
 	END
 	BEGIN TRAN 
-		IF EXISTS ( SELECT rfc FROM Usuario WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE rfc = @rfc)  
+		IF EXISTS ( SELECT correo FROM Usuario WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE correo = @correo)  
 		BEGIN
 			UPDATE Usuario																
 			SET pendiente = 0 ,
 				rechazado = 1																		
-			WHERE rfc = @rfc
+			WHERE correo = @correo
 			PRINT('Usuario rechazado con exito')
 		END
 	COMMIT TRAN
@@ -246,9 +255,9 @@ BEGIN
 END
 
 EXEC RechazaUsuario
-	@rfc='LOME971123HSL'
+	@correo='miguelernesto_23@hotmail.com'
 
-SELECT * FROM Usuario WHERE rfc='LOME971123HSL'
+SELECT * FROM Usuario WHERE correo='miguelernesto_23@hotmail.com'
 
 --------------------LOGIN------------------------------------------
 --drop procedure Autenticacion
@@ -257,33 +266,33 @@ CREATE PROCEDURE Autenticacion
     @contraseña VARCHAR(100)
 AS
 BEGIN
-    DECLARE @rfc VARCHAR(13)
+    DECLARE @correo1 VARCHAR(320)
 	DECLARE @tipo INT
 	--Validar usuario y contraseña correcto
-    IF EXISTS (SELECT TOP 1 rfc FROM Usuario WHERE correo=@correo)
+    IF EXISTS (SELECT TOP 1 correo FROM Usuario WHERE correo=@correo)
 	BEGIN
-		SET @rfc=(SELECT rfc FROM Usuario WHERE correo=@correo AND contraseña=HASHBYTES('SHA2_512', @contraseña))
-		IF(@rfc IS NULL)
+		SET @correo1=(SELECT correo FROM Usuario WHERE correo=@correo AND contraseña=HASHBYTES('SHA2_512', @contraseña))
+		IF(@correo1 IS NULL)
 	    BEGIN
            RAISERROR('Contraseña Incorrecta',10,1)
 		   RETURN 0
 	    END
         ELSE 
 			--Validar si el usuario ya existe y esta pendiente de revisión
-			IF EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc AND pendiente=1)
+			IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND pendiente=1)
 			BEGIN
 				RAISERROR('Usuario pendiente de revisión',10,2)
 				RETURN 0		
 			END
 
 			--Validar si el usuario ya fue rechazado
-			IF EXISTS (SELECT rfc FROM Usuario WHERE rfc=@rfc AND rechazado=1)
+			IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND rechazado=1)
 			BEGIN
 				RAISERROR('Usuario rechazado',10,3)
 				RETURN 0
 			END
             PRINT('Autenticación correcta')
-			SET @tipo = (SELECT tipo FROM Usuario WHERE rfc=@rfc)
+			SET @tipo = (SELECT tipo FROM Usuario WHERE correo=@correo)
 			RETURN @tipo
     END
     ELSE
@@ -326,7 +335,7 @@ EXEC Autenticacion
 CREATE PROCEDURE ChecarClientes
 AS
 BEGIN
-	SELECT rfc,apellido,nombre,correo,fechaNac,celular,codigoPostal,colonia,calle,numExterior,numInterior,pais,estado,municipio
+	SELECT correo,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
 	FROM Usuario
 	WHERE pendiente = 0 AND rechazado = 0 AND tipo=111
 END
@@ -338,7 +347,7 @@ EXEC ChecarClientes
 CREATE PROCEDURE UsuariosPendientes
 AS
 BEGIN
-	SELECT rfc,apellido,nombre,correo,fechaNac,celular,codigoPostal,colonia,calle,numExterior,numInterior,pais,estado,municipio
+	SELECT correo,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
 	FROM Usuario 
 	WHERE pendiente = 1 AND tipo=111
 END
@@ -349,7 +358,7 @@ EXEC UsuariosPendientes
 CREATE PROCEDURE UsuariosRechazados
 AS
 BEGIN
-	SELECT rfc,apellido,nombre,correo,fechaNac,celular,codigoPostal,colonia,calle,numExterior,numInterior,pais,estado,municipio
+	SELECT correo,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
 	FROM Usuario
 	WHERE rechazado = 1 AND tipo=111
 END
