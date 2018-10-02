@@ -12,6 +12,8 @@
 		<label id="sesion" style="margin-left: 18em">Iniciar sesión</label>
 	</header>
 	<span id="titulo">Información adicional</span>
+	<form id="table-form" action="{{route('financing')}}" method="POST">
+        {{ csrf_field ()}}
 	<div class="datos">
 		<label for="">RFC</label><br><br>
 		<label for="">País</label><br><br>

@@ -27,3 +27,10 @@ Route::get('/registro2', function () {
     return view('registro2');
 });
 
+Route::get('/principal', function () {
+    return view('principal');
+});
+
+Route::get('/autorizaciones', function () {
+    return view('autorizaciones');
+});
