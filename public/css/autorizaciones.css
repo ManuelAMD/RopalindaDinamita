@@ -1,0 +1,129 @@
+body{
+	font-family: 'Kodchasan', sans-serif;
+}
+
+.dropbtn {
+	font-family: 'Kodchasan', sans-serif;
+	margin-left: 22em;
+    background-color: #a163bd;
+    color: white;
+    padding: 16px;
+    font-size: 35px;
+    border: none;
+}
+ 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+ 
+.dropdown-content {
+	font-family: 'Kodchasan', sans-serif;
+	margin-left: 39em;
+    display: none;
+    position: absolute;
+    background-color: #a163bd;
+    min-width: 200px;
+    z-index: 1;
+    font-size: 20px;
+}
+ 
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+ 
+.dropdown-content a:hover {background-color: #a163bd;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #a163bd;}
+header{
+	color: white;
+	font-size: 60px;
+}
+
+header label{
+	font-size: 40px;
+}
+
+#idtabla{
+    margin-left: 550px;
+    margin-top: 150px;
+}
+#tabla{
+	border-collapse: black 5px solid;
+    display: inline-block;
+}
+
+#btn1{
+    width: 150px;
+    background-color: #a163bd;
+    color: white;
+    font-size: 20px;
+}
+
+#btn2{
+    width: 150px;
+    background-color: #a163bd;
+    color: white;
+    font-size: 20px;
+}
+
+#btn3{
+    width: 150px;
+    background-color: #a163bd;
+    color: white;
+    font-size: 20px;
+}
+
+/*.aceptado{
+display: block;
+width: 150px;
+padding: 50px;
+color: white;
+background-color: #a163bd;
+background: url(../img//img/palomita.png) no-repeat 0 0
+}
+
+.aceptado:hover{
+background: url(../img/palomita.png) no-repeat 0 0
+}
+
+.rechazado{
+display: block;
+width: 150px;
+padding: 50px;
+color: white;
+background-color: #a163bd;
+background: url(../img//img/tachita.png) no-repeat 0 0
+}
+
+.rechazado:hover{
+background: url(../img/tachita.png) no-repeat 0 0
+}*/
+
+#ap{
+    font-size: 40px;
+    margin-bottom: 50px;
+    margin-left: 200px;
+}
+
+.aceptado{
+    width: 150px;
+    background-color: #a163bd;
+    color: white;
+    font-size: 20px;
+}
+
+.rechazado{
+    width: 150px;
+    background-color: #a163bd;
+    color: white;
+    font-size: 20px;
+}
+
+#btnO{
+    margin-right: -200px;
+    margin-top: -127px;
+}
