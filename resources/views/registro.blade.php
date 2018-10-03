@@ -24,18 +24,18 @@
 		<label for="">Sexo</label><br>
 	</div>
 	<div class="cuadros-datos">
-		<input type="email" name="email" id="correo"><br><br>
-		<input type="password" id="clave"><br><br>
-		<input type="text" id="nombre"><br><br>
-		<input type="text" id="apellido"><br><br>
+		<input type="email" name="email" id="correo" required=""><br><br>
+		<input type="password" id="clave" required=""><br><br>
+		<input type="text" id="nombre" required=""><br><br>
+		<input type="text" id="apellido" required=""><br><br>
 		<select>
   			<option value="Mexico">+52</option>
 		</select>
-		<input type="text" id="celular"><br><br>
-		<input type="date" name="bday" min="1930-01-02" id="nacimiento"><br><br>
-		<input type="radio" name="gender" value="h" checked id="h">
+		<input type="text" id="celular" required=""><br><br>
+		<input type="date" name="bday" min="1930-01-02" id="nacimiento" required=""><br><br>
+		<input type="radio" name="gender" value="h" checked id="h" >
 		<label for="h" id="hombre">Hombre</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" name="gender" value="m"id="m">
+        <input type="radio" name="gender" value="m" id="m">
         <label for="m" id="mujer">Mujer</label>
 	</div>
 	<button id="siguiente" action="{{route('registro2')}}">Siguiente</button>
