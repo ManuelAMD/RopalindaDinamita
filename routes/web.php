@@ -27,3 +27,13 @@ Route::get('/registro2', function () {
     return view('registro2');
 });
 
+Route::get('/principal', function () {
+    return view('principal');
+});
+
+Route::get('/autorizaciones', function () {
+    return view('autorizaciones');
+});
+
+Route::get('/registros/registro2', 'UsuarioController@registrarTotal')->name('registro2');
+Route::get('/registros/registro', 'UsuarioController@registrarParte')->name('registro');

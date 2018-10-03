@@ -8,7 +8,7 @@
 </head>
 <body style="background: #efe3ed">
         <h1>RopaLinda</h1>
-</div>
+        {{ csrf_field ()}}
         <center><div class="hpanel">
                 <div class="panel-body">
                     <form action="/login/ingresar" method="POST" style="color: black;">
