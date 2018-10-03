@@ -12,9 +12,7 @@
 		<label id="sesion" style="margin-left: 18em">Iniciar sesión</label>
 	</header>
 	<span id="cuenta">Crear cuenta</span>
-	<form id="table-form" action="{{route('financing')}}" method="POST">
-        {{ csrf_field ()}}
-    <form id="table-form" action="{{route('registro2')}}" method="POST">
+	<form id="table-form" action="{{route('registro2')}}" method="POST">
         {{ csrf_field ()}}
 	<div class="datos">
 		<label for="">Correo electrónico</label><br><br>
@@ -40,6 +38,6 @@
         <input type="radio" name="gender" value="m"id="m">
         <label for="m" id="mujer">Mujer</label>
 	</div>
-	<button id="siguiente" href="/views/registro2.blade.php">Siguiente</button>
+	<button id="siguiente" action="{{route('registro2')}}">Siguiente</button>
 </body>
 </html>
