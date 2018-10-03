@@ -11,18 +11,18 @@
         {{ csrf_field ()}}
         <center><div class="hpanel">
                 <div class="panel-body">
-                    <form action="/login/ingresar" method="POST" style="color: black;">
+                    <form action="{{route('registro')}}" method="POST" style="color: black;">
                         {{ csrf_field() }}    
                         <h3>Inicia sesión</h3><br>
                     <div class="login">
                         <div class="correo-grupo">
                             <label class="correo">Correo electrónico</label><br>
-                            <input type="text" placeholder="ejemplo@gmail.com" required="" value=""
+                            <input type="text" placeholder="ejemplo@gmail.com" value=""
                              id="username">
                         </div>
                         <div class="login2">
                             <label class="clave">Contraseña</label><br>
-                            <input type="password" title="Porfavor ingrese su contraseña" placeholder="******" required="" value="" name="pass" id="password" class="form-control">
+                            <input type="password" title="Porfavor ingrese su contraseña" placeholder="******" value="" name="pass" id="password" class="form-control">
                             <br>
                             <br>
                         <button class="btnEntrar" style="background:#a163bd">Entrar</button>

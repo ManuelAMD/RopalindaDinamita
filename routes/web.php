@@ -35,5 +35,7 @@ Route::get('/autorizaciones', function () {
     return view('autorizaciones');
 });
 
-Route::get('/registros/registro2', 'UsuarioController@registrarTotal')->name('registro2');
-Route::get('/registros/registro', 'UsuarioController@registrarParte')->name('registro');
+Route::post('/login')->name('login');
+Route::post('/registros/registro', 'UsuarioController@registrarParte')->name('registro');
+Route::post('/registros/registro2', 'UsuarioController@registrarParte2')->name('registro2');
+Route::post('/login', 'UsuarioController@registrarTotal')->name('finish');
