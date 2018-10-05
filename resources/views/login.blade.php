@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Login de Usuario</title>
-	<link rel="stylesheet" href="css/login.css">
-    <link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
-</head>
-<body style="background: #efe3ed">
-        <h1>RopaLinda</h1>
-        {{ csrf_field ()}}
+@extends('layouts.app')
+
+@section('content')
         <center><div class="hpanel">
                 <div class="panel-body">
-                    <form action="{{route('registro')}}" method="POST" style="color: black;">
+                    <form action="{{route('principal')}}" method="POST" style="color: black;">
                         {{ csrf_field() }}    
                         <h3>Inicia sesión</h3><br>
                     <div class="login">
@@ -26,21 +18,25 @@
                             <br>
                             <br>
                         <button class="btnEntrar" style="background:#a163bd">Entrar</button>
+                    </form>
                         <br>
                         <br>
                         </div>
+                    <form action="{{route('registro')}}" method="POST">
+                        {{ csrf_field() }} 
                         <div class="registro">
                             <label class="Registra-label">¿Eres Nuevo en RopaLinda?</label><br>
                             <button id="Registro-btn" style="background: #9c9ea1">Crea tu cuenta</button>
                         </div>
-                    </div>
                     </form>
+                    </div>
         </center></div>
             </div>
         </div>
     </div>
     
 </div>
+
+@endsection
+
 	
-</body>
-</html>

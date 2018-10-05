@@ -1,14 +1,7 @@
 body{
 	font-family: 'Kodchasan', sans-serif;
 }
-header{
-	color: white;
-	font-size: 60px;
-}
 
-header label{
-	font-size: 40px;
-}
 
 #sesion{
  	margin-left: 5em;
@@ -27,9 +20,9 @@ header label{
 	font-size: 35px;
 }
 
-.cuadros-datos{
-	margin-left: 580px;
-	margin-top: -430px;
+#cuadros-datos{
+	margin-left: 520px;
+	margin-top: -360px;
 
 }
 
@@ -42,7 +35,8 @@ select{
 }
 
 #celular{
-	width: 327px;
+	font-size: 33px;
+	width: 415px;
 }
 
 #h{
@@ -72,4 +66,6 @@ select{
 	width: 250px;
 	font-family: 'Kodchasan', sans-serif;
 }
+
+
 

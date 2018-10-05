@@ -12,39 +12,42 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
 class UsuarioController extends Controller
-{
-	
-	public function registrarParte()
+{	
+	public function indexRegistro()
 	{
-		if($_POST)
-		{
-			Session::put('email',Input::get('correo'));
-			Session::put('password',Input::get('clave'));
-			Session::put('name',Input::get('nombre'));
-			Session::put('lastName',Input::get('apellido'));
-			Session::put('phoneNumber',Input::get('celular'));
-			Session::put('birthDate',Input::get('nacimiento'));
-			Session::put('sex',Input::only('h','m'));
-		}
 		return view('registro');
 	}
-	public function registrarParte2()
+	public function registrarParte(Request $request)
 	{
 		if($_POST)
 		{
-			Session::put('rfc',Input::get('rfc'));
-			Session::put('country',Input::get('pais'));
-			Session::put('state',Input::get('estado'));
-			Session::put('municipality',Input::get('municipio'));
-			Session::put('street',Input::get('calle'));
-			Session::put('colony',Input::get('colonia'));
-			Session::put('ext',Input::get('exttxt'));
-			Session::put('int',Input::get('inttxt'));
-			Session::put('cp',Input::get('cp'));
+			Session::put('email',$request->input('correo'));
+			Session::put('password',$request->input('clave'));
+			Session::put('name',$request->input('nombre'));
+			Session::put('lastName',$request->input('apellido'));
+			Session::put('phoneNumber',$request->input('celular'));
+			Session::put('birthDate',$request->input('nacimiento'));
+			Session::put('sex',Input::only('h','m'));
 		}
 		return view('registro2');
 	}
-	public function registrarTotal()
+	public function registrarParte2(Request $request)
+	{
+		if($_POST)
+		{
+			Session::put('rfc',$request->input('rfc'));
+			Session::put('country',$request->input('pais'));
+			Session::put('state',$request->input('estado'));
+			Session::put('municipality',$request->input('municipio'));
+			Session::put('street',$request->input('calle'));
+			Session::put('colony',$request->input('colonia'));
+			Session::put('ext',$request->input('exttxt'));
+			Session::put('int',$request->input('inttxt'));
+			Session::put('cp',$request->input('cp'));
+		}
+		return view('registro2');
+	}
+	public function registrarTotal(Request $request)
 	{
 		if($_POST)
 		{
@@ -55,19 +58,20 @@ class UsuarioController extends Controller
 			$phoneNumber = Session::get('phoneNumber');
 			$birthDate = Session::get('birthDate');
 			$sex = Session::get('sex');
-			$rfc = Session::get('rfc');
-			$country = Session::get('country');
-			$state = Session::get('state');
-			$municipality = Session::get('municipality');
-			$street = Session::get('street');
-			$colony = Session::get('colony');
-			$ext = Session::get('ext');
-			$int = Session::get('int');
-			$cp = Session::get('cp');
+			$rfc = Input::get('rfc');
+			$country = $request->input('country');
+			$state = $request->input('state');
+			$municipality = $request->input('municipality');
+			$street = $request->input('street');
+			$colony = $request->input('colony');
+			$ext = $request->input('ext');
+			$int = $request->input('int');
+			$cp = $request->input('cp');
+			//$usuario = Usuario();
 			$values=[$rfc, $lastName,$name,$cp,$colony,$street,$ext,$int,$phoneNumber,$birthDate,$country,$state,$municipality,$email,$password,$sex];
-			error_log($rfc);
+			//error_log($rfc);
 			/*DB::select('EXEC RegistroUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($rfc, $lastName,$name,$cp,$colony,$street,$ext,$int,$phoneNumber,$birthDate,$country,$state,$municipality,$email,$password,$sex));*/
-			DB::beginTransaction('EXEC RegistroUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$values);
+			//DB::beginTransaction('EXEC RegistroUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',$values);
 
 		}
 		return Redirect::to('login');
