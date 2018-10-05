@@ -9,7 +9,7 @@
 </head>
 <body style="background: #efe3ed">
 	<header style="background: #a163bd">
-		<label for="" href="/resources/views/principal.blade.php">Ropa Linda</label> 
+		<span for="" action="{{route('principal')}}">Ropa Linda</span> 
 		<div class="dropdown">
 			<button class="dropbtn">Hola usuario</button>
 		<div class="dropdown-content">

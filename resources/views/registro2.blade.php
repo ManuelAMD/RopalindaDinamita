@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Registro</title>
-	<link rel="stylesheet" href="/css/registro2.css">
-	<link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
-</head>
-<body style="background: #efe3ed">
-	<header style="background: #a163bd">
-		<label for="">Ropa Linda</label> 
-		<label id="sesion" style="margin-left: 18em">Iniciar sesión</label>
-	</header>
+@extends('layouts.app')
+
+@section('content')
 	<form id="table-form" action="{{route('finish')}}" method="POST">
 	<span id="titulo">Información adicional</span>
         {{ csrf_field ()}}
@@ -38,5 +28,4 @@
 	</div>
 	<button id="fin">Finalizar</button>
 	</form>
-</body>
-</html>
+@endsection
