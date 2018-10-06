@@ -6,7 +6,6 @@ Use RopaLinda
 --Creación de tablas
 --drop table Usuario
 Create table Usuario(
-id int identity (20000,1) Not null,
 rfc char(13) NOT NULL,
 apellido varchar(50) NOT NULL,
 nombre varchar(50) NOT NULL,
@@ -28,7 +27,7 @@ rechazado BIT NOT NULL,				-- BIT RECIBE 0 o 1, en cuanto se hace un registro ma
 Tipo INT NOT NULL
 )
 ALTER TABLE Usuario
-ADD CONSTRAINT PK_Usuario PRIMARY KEY (id,correo);
+ADD CONSTRAINT PK_Usuario PRIMARY KEY (correo);
 
 --Procedimiento Para registrar un cliente
 --drop procedure RegistroUsuario
@@ -51,27 +50,6 @@ CREATE PROCEDURE RegistroUsuario
 	@sexo CHAR(1)
 AS
 BEGIN
-	--Validar si el usuario ya existe y esta pendiente de revisión
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND pendiente=1)
-	BEGIN
-		RAISERROR('Usuario pendiente de revisión',10,1);
-		RETURN 0
-	END
-
-	--Validar si el usuario ya fue rechazado
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND rechazado=1)
-	BEGIN
-		RAISERROR('Usuario rechazado',10,2);
-		RETURN 0
-	END
-
-	--Validar si el usuario existe
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
-	BEGIN
-		RAISERROR('Usuario ya registrado',10,3);
-		RETURN 0
-	END
-
     BEGIN TRY
 			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,sexo,pendiente,rechazado,tipo)
 			VALUES(@rfc,@apellido,@nombre,@codigoPostal,@colonia,@calle,@numExterior,@numInterior,@celular,@fechaNac,@pais,@estado,
@@ -90,7 +68,7 @@ EXEC RegistroUsuario
     @rfc = 'LOMM960619HSL',
 	@apellido = 'López Malacón',
 	@nombre = 'Jose Manuel',
-	@codigoPostal = 80060 ,
+	@codigoPostal = 80060,
 	@colonia = 'Col. Las Quintas',
 	@calle = 'Angel Flores',
 	@numExterior = 999,
@@ -156,13 +134,6 @@ CREATE PROCEDURE RegistroAdmDis
 	@tipo INT
 AS
 BEGIN
-	--Validar si el usuario existe
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
-	BEGIN
-		RAISERROR('Usuario ya registrado',10,3);
-		RETURN 0
-	END
-
     BEGIN TRY
 			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,sexo,pendiente,rechazado,tipo)
 			VALUES(@rfc,@apellido,@nombre,0,'','',0,0,@celular,@fechaNac,'','',
@@ -208,11 +179,6 @@ CREATE PROCEDURE AceptaUsuario
 	@correo varchar(320)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
-	BEGIN
-			RAISERROR('Usuario no existente',10,1)
-			RETURN 0	
-	END
 	BEGIN TRAN 
 		IF EXISTS ( SELECT correo FROM Usuario  WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE correo = @correo)  
 		BEGIN
@@ -220,10 +186,8 @@ BEGIN
 			SET pendiente = 0,
 				rechazado = 0																		
 			WHERE correo = @correo
-			PRINT('Cliente aceptado con exito')	
 		END
 	COMMIT TRAN
-	RETURN 1
 END
 
 EXEC AceptaUsuario
@@ -236,11 +200,6 @@ CREATE PROCEDURE RechazaUsuario
 	@correo varchar(320)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
-	BEGIN
-			RAISERROR('Usuario no existente',10,1)
-			RETURN 1		
-	END
 	BEGIN TRAN 
 		IF EXISTS ( SELECT correo FROM Usuario WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE correo = @correo)  
 		BEGIN
@@ -248,10 +207,8 @@ BEGIN
 			SET pendiente = 0 ,
 				rechazado = 1																		
 			WHERE correo = @correo
-			PRINT('Usuario rechazado con exito')
 		END
 	COMMIT TRAN
-	return 0
 END
 
 EXEC RechazaUsuario
@@ -263,72 +220,80 @@ SELECT * FROM Usuario WHERE correo='miguelernesto_23@hotmail.com'
 --drop procedure Autenticacion
 CREATE PROCEDURE Autenticacion
     @correo VARCHAR(320),
-    @contraseña VARCHAR(100)
+    @contraseña VARCHAR(100),
+	@tipo INT OUTPUT
+
 AS
 BEGIN
     DECLARE @correo1 VARCHAR(320)
-	DECLARE @tipo INT
 	--Validar usuario y contraseña correcto
-    IF EXISTS (SELECT TOP 1 correo FROM Usuario WHERE correo=@correo)
+    IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
 	BEGIN
 		SET @correo1=(SELECT correo FROM Usuario WHERE correo=@correo AND contraseña=HASHBYTES('SHA2_512', @contraseña))
 		IF(@correo1 IS NULL)
 	    BEGIN
-           RAISERROR('Contraseña Incorrecta',10,1)
-		   RETURN 0
+		SET @tipo=0
+		    RETURN 0
 	    END
         ELSE 
 			--Validar si el usuario ya existe y esta pendiente de revisión
 			IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND pendiente=1)
 			BEGIN
-				RAISERROR('Usuario pendiente de revisión',10,2)
+			SET @tipo=2
 				RETURN 0		
 			END
 
 			--Validar si el usuario ya fue rechazado
 			IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND rechazado=1)
 			BEGIN
-				RAISERROR('Usuario rechazado',10,3)
+				SET @tipo=3 --RECHAZADO
 				RETURN 0
 			END
-            PRINT('Autenticación correcta')
-			SET @tipo = (SELECT tipo FROM Usuario WHERE correo=@correo)
-			RETURN @tipo
+			SELECT @tipo = tipo
+			FROM Usuario
+			WHERE correo=@correo
     END
     ELSE
-       RAISERROR('Autenticación Invalida',10,4)
+	SET @tipo=0
 	   RETURN 0
 END
 
 ---------------------------PROBAR EL LOGIN---------------------------------------
 -- USUARIO NORMAL
 --Correcto
+DECLARE @tipo INT,@AUTH INT
 EXEC Autenticacion
 		@Correo = 'chuy04@hotmail.com',
-		@Contraseña = 'admin123'
+		@Contraseña = 'admin123',
+		@tipo = @tipo OUTPUT
+SELECT @tipo as '@tipo'
 
 --Login incorrecto
 EXEC Autenticacion
 		@Correo = 'Admin',
-		@Contraseña = '123'
-
+		@Contraseña = '123',
+		@tipo = @tipo OUTPUT
+SELECT @tipo as '@tipo'
 --Contraseña incorrecta
 EXEC Autenticacion
 		@Correo = 'miguelernesto_23@hotmail.com',
-		@Contraseña = '123'
-
+		@Contraseña = '123',
+		@tipo = @tipo OUTPUT
+SELECT @tipo as '@tipo'
 --USUARIO PENDIENTE
 
 EXEC Autenticacion
 		@Correo = 'josemanuellopez_19@hotmail.com',
-		@Contraseña = 'admin123'
-
+		@Contraseña = 'admin123',
+		@tipo = @tipo OUTPUT
+SELECT @tipo as '@tipo'
 --USUARIO RECHAZADO
 
 EXEC Autenticacion
 		@Correo = 'miguelernesto_23@hotmail.com',
-		@Contraseña = 'admin123'
-
+		@Contraseña = 'admin123',
+		@tipo = @tipo OUTPUT
+SELECT @tipo as '@tipo'
 ----------------------------------------------------------------
 --CONSULTA CLIENTES
 --drop procedure ChecarClientes
