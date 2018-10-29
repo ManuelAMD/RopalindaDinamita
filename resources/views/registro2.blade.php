@@ -16,15 +16,15 @@
 		<label for="">Código postal</label>
 	</div>
 	<div class="cuadros-datos">
-		<input type="text" id="rfc" required=""><br><br>
-		<input type="text" id="pais" required=""><br><br>
-		<input type="text" id="estado" required=""><br><br>
-		<input type="text" id="municipio" required=""><br><br>
-		<input type="text" id="calle" required=""><br><br>
-		<input type="text" id="colonia" required=""><br><br>
-		<input type="text" id="exttxt" required="">
-		<input type="text" id="inttxt"><br><br>
-		<input type="text" id="cp" required=""><br>
+		<input type="text" id="rfc" name="rfc" required=""><br><br>
+		<input type="text" id="pais" name="country" required=""><br><br>
+		<input type="text" id="estado" name="state" required=""><br><br>
+		<input type="text" id="municipio" name="municipally" required=""><br><br>
+		<input type="text" id="calle" name="street" required=""><br><br>
+		<input type="text" id="colonia" name="colony" required=""><br><br>
+		<input type="text" id="exttxt" name="ext" required="">
+		<input type="text" id="inttxt" name="int"><br><br>
+		<input type="text" id="cp" name="cp" required=""><br>
 	</div>
 	<button id="fin">Finalizar</button>
 	</form>
