@@ -20,13 +20,8 @@
             <li><a href="{{ route('principal') }}">Inicio</a></li>
             <li><a href="#">Acerca de</a></li>
             <li><a href="#">Catalogos</a></li>
-            @if (Auth::guest())
-                <li><a href="{{ route('login') }}">Iniciar sesion</a></li>
-                <li><a href="{{ route('registro') }}">Registrarse</a></li>
-            @else
-                <li><a href="{{ route('info') }}">Información de usuario</a></li>
-                <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
-            @endif
+            <li><a href="{{ route('login') }}">Iniciar sesion</a></li>
+            <li><a href="{{ route('registro') }}">Registrarse</a></li>
         </ul>
         </nav>
         

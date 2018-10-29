@@ -21,6 +21,8 @@ class PrincipalController extends Controller
      */
     public function index()
     {
+        //dd(Auth::user()->id);
+        //$projects = Project::paginate();
         return view('principal');
     }
 }

@@ -15,13 +15,13 @@
 	</div>
 	<div id="cuadros-datos">
 		<input type="email" name="email" id="correo" required=""><br><br>
-		<input type="password" id="clave" name="password" required=""><br><br>
-		<input type="text" id="nombre" name="name" required=""><br><br>
-		<input type="text" id="apellido" name="lastName" required=""><br><br>
+		<input type="password" id="clave" required=""><br><br>
+		<input type="text" id="nombre" required=""><br><br>
+		<input type="text" id="apellido" required=""><br><br>
 		<select>
   			<option value="Mexico">+52</option>
 		</select>
-		<input type="text" id="celular" name="celular" required=""><br><br>
+		<input type="text" id="celular" required=""><br><br>
 		<input type="date" name="bday" min="1930-01-02" id="nacimiento" required=""><br><br>
 		<input type="radio" name="gender" value="h" checked id="h" >
 		<label for="h" id="hombre">Hombre</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
