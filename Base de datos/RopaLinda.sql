@@ -20,15 +20,16 @@ fechaNac Datetime NOT NULL,
 pais varchar(15) NOT NULL,
 estado varchar(15) NOT NULL,
 municipio varchar(15) NOT NULL,
-correo varchar(320) NOT NULL,
-contraseña BINARY(64) NOT NULL,
+email varchar(320) NOT NULL,
+password VarChar(64) NOT NULL,
 sexo CHAR(1) NOT NULL,				-- H o M
 pendiente BIT NOT NULL,             -- BIT RECIBE 0 o 1, en cuanto se hace un registro mandarlo como 1
 rechazado BIT NOT NULL,				-- BIT RECIBE 0 o 1, en cuanto se hace un registro mandarlo como 0
-Tipo INT NOT NULL
+Tipo INT NOT NULL,
+remember_token nvarchar(100)
 )
 ALTER TABLE Usuario
-ADD CONSTRAINT PK_Usuario PRIMARY KEY (id,correo);
+ADD CONSTRAINT PK_Usuario PRIMARY KEY (id,email);
 
 --Procedimiento Para registrar un cliente
 --drop procedure RegistroUsuario
@@ -46,36 +47,36 @@ CREATE PROCEDURE RegistroUsuario
 	@pais VARCHAR(15),
 	@estado VARCHAR(15),
 	@municipio VARCHAR(15),
-	@correo VARCHAR(320),
-	@contraseña VARCHAR(100),
+	@email VARCHAR(320),
+	@password VARCHAR(100),
 	@sexo CHAR(1)
 AS
 BEGIN
 	--Validar si el usuario ya existe y esta pendiente de revisión
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND pendiente=1)
+	IF EXISTS (SELECT email FROM Usuario WHERE email=@email AND pendiente=1)
 	BEGIN
 		RAISERROR('Usuario pendiente de revisión',10,1);
 		RETURN 0
 	END
 
 	--Validar si el usuario ya fue rechazado
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND rechazado=1)
+	IF EXISTS (SELECT email FROM Usuario WHERE email=@email AND rechazado=1)
 	BEGIN
 		RAISERROR('Usuario rechazado',10,2);
 		RETURN 0
 	END
 
 	--Validar si el usuario existe
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
+	IF EXISTS (SELECT email FROM Usuario WHERE email=@email)
 	BEGIN
 		RAISERROR('Usuario ya registrado',10,3);
 		RETURN 0
 	END
 
     BEGIN TRY
-			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,sexo,pendiente,rechazado,tipo)
+			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,email,password,sexo,pendiente,rechazado,tipo)
 			VALUES(@rfc,@apellido,@nombre,@codigoPostal,@colonia,@calle,@numExterior,@numInterior,@celular,@fechaNac,@pais,@estado,
-			@municipio,@correo, HASHBYTES('SHA2_512', @contraseña),@sexo,1,0,111)
+			@municipio,@email,@password,@sexo,1,0,111)
 			PRINT ('Has sido registrado');
 			RETURN 1
     END TRY
@@ -100,8 +101,8 @@ EXEC RegistroUsuario
 	@pais = 'Mexico',
 	@estado = 'Sinaloa',
 	@municipio = 'Culiacan',
-	@correo = 'josemanuellopez_19@hotmail.com',
-	@contraseña = 'admin123',
+	@email = 'josemanuellopez_19@hotmail.com',
+	@password = 'admin123',
 	@sexo = 'H'
 
 EXEC RegistroUsuario
@@ -118,8 +119,8 @@ EXEC RegistroUsuario
 	@pais = 'Mexico',
 	@estado = 'Sinaloa',
 	@municipio = 'Culiacan',
-	@correo = 'miguelernesto_23@hotmail.com',
-	@contraseña = 'admin123',
+	@email = 'miguelernesto_23@hotmail.com',
+	@password = 'admin123',
 	@sexo = 'H'
 
 EXEC RegistroUsuario
@@ -136,11 +137,12 @@ EXEC RegistroUsuario
 	@pais = 'Mexico',
 	@estado = 'Sinaloa',
 	@municipio = 'Culiacan',
-	@correo = 'chuy04@hotmail.com',
-	@contraseña = 'admin123',
+	@email = 'chuy04@hotmail.com',
+	@password = 'admin123',
 	@sexo = 'H'
 -----------------------------------------------------------------
 SELECT * FROM Usuario
+--Delete From Usuario Where id = 20000
 -----------------------------------------------------------------
 --Registro de ADMINISTRADORES/DISEÑADORES
 --drop procedure RegistroAdmDis
@@ -150,23 +152,23 @@ CREATE PROCEDURE RegistroAdmDis
 	@nombre VARCHAR(50),
 	@celular CHAR(10),
 	@fechaNac DATETIME,
-	@correo VARCHAR(320),
-	@contraseña VARCHAR(100),
+	@email VARCHAR(320),
+	@password VARCHAR(100),
 	@sexo CHAR(1),
 	@tipo INT
 AS
 BEGIN
 	--Validar si el usuario existe
-	IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
+	IF EXISTS (SELECT email FROM Usuario WHERE email=@email)
 	BEGIN
 		RAISERROR('Usuario ya registrado',10,3);
 		RETURN 0
 	END
 
     BEGIN TRY
-			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,correo,contraseña,sexo,pendiente,rechazado,tipo)
+			INSERT INTO Usuario (rfc,apellido,nombre,codigoPostal,colonia,calle,numExterior,numInterior,celular,fechaNac,pais,estado,municipio,email,password,sexo,pendiente,rechazado,tipo)
 			VALUES(@rfc,@apellido,@nombre,0,'','',0,0,@celular,@fechaNac,'','',
-			'',@correo, HASHBYTES('SHA2_512', @contraseña),@sexo,0,0,@tipo)
+			'',@email, @password,@sexo,0,0,@tipo)
 			PRINT ('Has sido registrado');
 			RETURN 1
     END TRY
@@ -184,8 +186,8 @@ EXEC RegistroAdmDis
 	@nombre = 'Manuel Alejandro',
 	@celular = '6671456345',
 	@fechaNac = '1995-12-02',
-	@correo = 'manyalex@hotmail.com',
-	@contraseña = 'many',
+	@email = 'manyalex@hotmail.com',
+	@password = 'many',
 	@tipo = 999 ,
 	@sexo = 'H'
 
@@ -196,8 +198,8 @@ EXEC RegistroAdmDis
 	@nombre = 'María Fernanda',
 	@celular = '6671935732',
 	@fechaNac = '1994-02-26',
-	@correo = 'ma_fer_945@hotmail.com',
-	@contraseña = 'fer',
+	@email = 'ma_fer_945@hotmail.com',
+	@password = 'fer',
 	@tipo = 444,
 	@sexo = 'M'
 
@@ -205,21 +207,21 @@ Select * from Usuario where Tipo<>111
 -----------------------------------------------------------------
 --drop procedure AceptaUsuario
 CREATE PROCEDURE AceptaUsuario
-	@correo varchar(320)
+	@email varchar(320)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
+	IF NOT EXISTS (SELECT email FROM Usuario WHERE email=@email)
 	BEGIN
 			RAISERROR('Usuario no existente',10,1)
 			RETURN 0	
 	END
 	BEGIN TRAN 
-		IF EXISTS ( SELECT correo FROM Usuario  WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE correo = @correo)  
+		IF EXISTS ( SELECT email FROM Usuario  WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE email = @email)  
 		BEGIN
 			UPDATE Usuario																
 			SET pendiente = 0,
 				rechazado = 0																		
-			WHERE correo = @correo
+			WHERE email = @email
 			PRINT('Cliente aceptado con exito')	
 		END
 	COMMIT TRAN
@@ -227,27 +229,27 @@ BEGIN
 END
 
 EXEC AceptaUsuario
-	@correo='chuy04@hotmail.com'
+	@email='chuy04@hotmail.com'
 
-SELECT * FROM Usuario WHERE correo='chuy04@hotmail.com'
+SELECT * FROM Usuario WHERE email='chuy04@hotmail.com'
 -----------------------------------------------------------------
 --drop procedure RechazaUsuario
 CREATE PROCEDURE RechazaUsuario
-	@correo varchar(320)
+	@email varchar(320)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT correo FROM Usuario WHERE correo=@correo)
+	IF NOT EXISTS (SELECT email FROM Usuario WHERE email=@email)
 	BEGIN
 			RAISERROR('Usuario no existente',10,1)
 			RETURN 1		
 	END
 	BEGIN TRAN 
-		IF EXISTS ( SELECT correo FROM Usuario WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE correo = @correo)  
+		IF EXISTS ( SELECT email FROM Usuario WITH (UPDLOCK,INDEX(PK_Usuario)) WHERE email = @email)  
 		BEGIN
 			UPDATE Usuario																
 			SET pendiente = 0 ,
 				rechazado = 1																		
-			WHERE correo = @correo
+			WHERE email = @email
 			PRINT('Usuario rechazado con exito')
 		END
 	COMMIT TRAN
@@ -255,44 +257,44 @@ BEGIN
 END
 
 EXEC RechazaUsuario
-	@correo='miguelernesto_23@hotmail.com'
+	@email='miguelernesto_23@hotmail.com'
 
-SELECT * FROM Usuario WHERE correo='miguelernesto_23@hotmail.com'
+SELECT * FROM Usuario WHERE email='miguelernesto_23@hotmail.com'
 
 --------------------LOGIN------------------------------------------
 --drop procedure Autenticacion
 CREATE PROCEDURE Autenticacion
-    @correo VARCHAR(320),
-    @contraseña VARCHAR(100)
+    @email VARCHAR(320),
+    @password VARCHAR(100)
 AS
 BEGIN
-    DECLARE @correo1 VARCHAR(320)
+    DECLARE @email1 VARCHAR(320)
 	DECLARE @tipo INT
-	--Validar usuario y contraseña correcto
-    IF EXISTS (SELECT TOP 1 correo FROM Usuario WHERE correo=@correo)
+	--Validar usuario y password correcto
+    IF EXISTS (SELECT TOP 1 email FROM Usuario WHERE email=@email)
 	BEGIN
-		SET @correo1=(SELECT correo FROM Usuario WHERE correo=@correo AND contraseña=HASHBYTES('SHA2_512', @contraseña))
-		IF(@correo1 IS NULL)
+		SET @email1=(SELECT email FROM Usuario WHERE email=@email AND password=@password)
+		IF(@email1 IS NULL)
 	    BEGIN
-           RAISERROR('Contraseña Incorrecta',10,1)
+           RAISERROR('password Incorrecta',10,1)
 		   RETURN 0
 	    END
         ELSE 
 			--Validar si el usuario ya existe y esta pendiente de revisión
-			IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND pendiente=1)
+			IF EXISTS (SELECT email FROM Usuario WHERE email=@email AND pendiente=1)
 			BEGIN
 				RAISERROR('Usuario pendiente de revisión',10,2)
 				RETURN 0		
 			END
 
 			--Validar si el usuario ya fue rechazado
-			IF EXISTS (SELECT correo FROM Usuario WHERE correo=@correo AND rechazado=1)
+			IF EXISTS (SELECT email FROM Usuario WHERE email=@email AND rechazado=1)
 			BEGIN
 				RAISERROR('Usuario rechazado',10,3)
 				RETURN 0
 			END
             PRINT('Autenticación correcta')
-			SET @tipo = (SELECT tipo FROM Usuario WHERE correo=@correo)
+			SET @tipo = (SELECT tipo FROM Usuario WHERE email=@email)
 			RETURN @tipo
     END
     ELSE
@@ -304,30 +306,30 @@ END
 -- USUARIO NORMAL
 --Correcto
 EXEC Autenticacion
-		@Correo = 'chuy04@hotmail.com',
-		@Contraseña = 'admin123'
+		@email = 'chuy04@hotmail.com',
+		@password = 'admin123'
 
 --Login incorrecto
 EXEC Autenticacion
-		@Correo = 'Admin',
-		@Contraseña = '123'
+		@email = 'Admin',
+		@password = '123'
 
---Contraseña incorrecta
+--password incorrecta
 EXEC Autenticacion
-		@Correo = 'miguelernesto_23@hotmail.com',
-		@Contraseña = '123'
+		@email = 'miguelernesto_23@hotmail.com',
+		@password = '123'
 
 --USUARIO PENDIENTE
 
 EXEC Autenticacion
-		@Correo = 'josemanuellopez_19@hotmail.com',
-		@Contraseña = 'admin123'
+		@email = 'josemanuellopez_19@hotmail.com',
+		@password = 'admin123'
 
 --USUARIO RECHAZADO
 
 EXEC Autenticacion
-		@Correo = 'miguelernesto_23@hotmail.com',
-		@Contraseña = 'admin123'
+		@email = 'miguelernesto_23@hotmail.com',
+		@password = 'admin123'
 
 ----------------------------------------------------------------
 --CONSULTA CLIENTES
@@ -335,7 +337,7 @@ EXEC Autenticacion
 CREATE PROCEDURE ChecarClientes
 AS
 BEGIN
-	SELECT correo,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
+	SELECT email,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
 	FROM Usuario
 	WHERE pendiente = 0 AND rechazado = 0 AND tipo=111
 END
@@ -347,7 +349,7 @@ EXEC ChecarClientes
 CREATE PROCEDURE UsuariosPendientes
 AS
 BEGIN
-	SELECT correo,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
+	SELECT email,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
 	FROM Usuario 
 	WHERE pendiente = 1 AND tipo=111
 END
@@ -355,15 +357,45 @@ END
 EXEC UsuariosPendientes
 ----------------------------------------------------------------
 --CONSULTA USUARIOS YA RECHAZADOS
+--drop Procedure UsuariosRechazados
 CREATE PROCEDURE UsuariosRechazados
 AS
 BEGIN
-	SELECT correo,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
+	SELECT email,nombre,apellido,celular,fechaNac,sexo,colonia,calle,numExterior,numInterior,pais,estado,municipio,codigoPostal
 	FROM Usuario
 	WHERE rechazado = 1 AND tipo=111
 END
 
 EXEC UsuariosRechazados
 
+-----------------------InfoUsuario------------------------------
+--drop procedure VerificarUsuario
+CREATE PROCEDURE VerificarUsuario
+    @email VARCHAR(320),
+    @password VARCHAR(100)
+AS
+BEGIN
+    DECLARE @email1 VARCHAR(320)
+	DECLARE @tipo INT
+	--Validar usuario y password correcto
+    IF EXISTS (SELECT TOP 1 email FROM Usuario WHERE email=@email)
+	BEGIN
+		SET @email1=(SELECT email FROM Usuario WHERE email=@email AND password=@password)
+		IF(@email1 IS NULL)
+	    BEGIN
+           RAISERROR('password Incorrecta',10,1)
+		   Select 0
+	    END
+        ELSE 
+			SELECT id,rfc,apellido as lastname,nombre as name, codigoPostal as cp, colonia as colony, 
+				calle as street, numExterior, numInterior, celular as cellphone, fechaNac as birthdate,
+				pais as country, estado as state, municipio as municipalliti, email as email, sexo, Tipo FROM Usuario WHERE email=@email
+    END
+    ELSE
+       RAISERROR('Autenticación Invalida',10,4)
+	   RETURN 0
+END
 
-
+EXEC VerificarUsuario
+		@email = 'chuy04@hotmail.com',
+		@password = 'admin123'

@@ -43,15 +43,21 @@ Route::post('/login', 'UsuarioController@registrarTotal')->name('finish');*/
 
 Auth::routes();
 
+Route::get('/', 'PrincipalController@index')->name('logout'); 
 Route::get('/login', 'LoginController@index')->name('login');
-Route::get('/', 'PrincipalController@index')->name('logout');
+Route::get('/logout', 'LoginController@logout')->name('logout'); 
 Route::get('/registros/registro', 'UsuarioController@indexRegistro')->name('registro');
 Route::get('/principal', 'PrincipalController@index')->name('principal');
-Route::get('/autorizaciones',function(){return view('autorizaciones');})->name('autorizaciones');
-Route::post('/principal', 'PrincipalController@index')->name('principal');
+//Route::get('/autorizaciones',function(){return view('autorizaciones');})->name('autorizaciones');
 
-Route::post('/login')->name('login');
+Route::post('/login','LoginController@log')->name('login');
 Route::post('/registros/registro', 'UsuarioController@indexRegistro')->name('registro');
 Route::post('/registros/registro2', 'UsuarioController@registrarParte')->name('registro2');
 Route::post('/autorizaciones', 'autorizacionesController@index')->name('autorizaciones');
-Route::post('/login', 'UsuarioController@registrarTotal')->name('finish');
+Route::post('/registros/registrar', 'UsuarioController@registrarTotal')->name('finish');
+Route::get('/info',function(){
+	dd(Auth::User());
+})->name('info');
+//Auth::routes(); /*Rutas para authenticacion*/
+
+Route::get('/home', 'HomeController@index')->name('home');
