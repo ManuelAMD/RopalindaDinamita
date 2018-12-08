@@ -31,4 +31,24 @@ class Usuario extends Model
 		$values=[$rfc, $lastName,$name,$cp,$colony,$street,$ext,$int,$phoneNumber,$birthDate,$country,$state,$municipality,$email,$password,$sex];
 		DB::statement('RegistroUsuario ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',$values);
 	}
+
+	  protected  $table  ='User_table';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password', 'rfc', 'lastname', 'name', 'cp' ,'street', 'numExterior', 'numInterior', 'cellphone', 'birthdate', 'country', 'state', 'municipallity', 'email', 'sexo', 'tipo',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }
