@@ -26,7 +26,28 @@ class UsuarioController extends Controller
 	public function registrarTotal(Request $request)
 	{
 		$usuario = new Usuario;
+		print_r($usuario); 	
 		$usuario->registrar($request);
-		return redirect('login');
+		return redirect("/send");
+		
 	}
+	//f
+	public function index(){
+    	$usuarios=Usuario::all(); 
+    	return view('usuario.listado')->with('usuarios',$usuarios); 
+    }
+    public function edit($id)
+	{
+		$usuario=Usuario::find($id);
+		// dd($usuario); 
+
+      	return view ('usuario.edit')->with('usuario',$usuario);      
+	}
+	 public function update(Request $request,$id){
+    
+      $usuario=Usuario::find($id);
+     print_r($usuario);	
+  	}
+
+	//f
 }
