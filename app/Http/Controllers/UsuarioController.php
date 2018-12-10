@@ -23,6 +23,11 @@ class UsuarioController extends Controller
 		$request->flash();//Guarda la información de este regiatro.	
 		return view('registro2');
 	}
+	public function create(Request $request)
+	{
+		$request->flash();//Guarda la información de este regiatro.	
+		return view('registro2');
+	}
 	public function registrarTotal(Request $request)
 	{
 		$usuario = new Usuario;
