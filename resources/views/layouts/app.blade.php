@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/registro2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('img/principal.jpg') }}">
+    <link rel="stylesheet" href="{{ asset('css/prendaper.css') }}">
 
 </head>
 <body style="background: #E4E4E4">
