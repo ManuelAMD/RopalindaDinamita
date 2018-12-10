@@ -22,8 +22,8 @@ class prendaController extends Controller
 
 
     public function results(Request $request){
-      $productos=Prenda::name($request->nombre)->
-            orderBy('nombre','DESC')->paginate->();
+      //$productos=Prenda::name($request->nombre)->
+            //orderBy('nombre','DESC')->paginate->();
       return view ('Prenda.menuBusqueda');  
     }
 
@@ -91,6 +91,11 @@ class prendaController extends Controller
     public function index(){
       $prendas=prenda::orderBy('id','ASC')->paginate(10); 
       return view('Prenda.listado')->with('prendas',$prendas); 
+     }
+
+     public function personalize(){
+      dd("Hola");
+      return view('prendas.prendasper'); 
      }
 
     

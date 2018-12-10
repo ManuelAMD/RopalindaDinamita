@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/registro2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('img/principal.jpg') }}">
+    <link rel="stylesheet" href="{{ asset('css/prendaper.css') }}">
 
 </head>
 <body style="background: #E4E4E4">
@@ -38,6 +39,17 @@
         
     </ul>
     @yield('content')
+    <footer id="footer">
+        <img src="img/logo.png" alt="" id="logoF">
+        <ul id="empresa" style="list-style:none;">
+            <span id="us">Sobre Nosotros</span>
+            <li>Misión</li>
+            <li>Visión</li>
+            <li>Valores</li>
+            <li>Terminos y condiciones de compra</li><br>
+            <li id="correo">ropalindaDinamita@gmail.com</li>
+        </ul>
+    </footer>
     
     
 </body>

@@ -70,8 +70,10 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 		 	['uses' =>'PrendaController@edit',
 		 	'as'	=>'Prenda.edit'
 		 	]);
-	  	
-	    
+	  	Route::get('prenda/personalize',
+	    	['uses' =>'PrendaController@personalize',
+		 	'as'	=>'Prenda.personalize'
+		 	]);
 	});
 
 
