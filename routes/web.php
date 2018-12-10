@@ -52,16 +52,25 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 
 
 //--f
-	Route::group(['prefix'=> 'productos'],function(){
-		Route::resource('productos','ProductController');
-		Route::get('productos/{id}/destroy',
-		 	['uses' =>'ProductController@destroy',
-		 	'as'	=>'productos.destroy'
+	Route::group(['prefix'=> 'prendas'],function(){
+		Route::resource('Prenda','PrendaController');
+		Route::get('prenda/{id}/destroy',
+		 	['uses' =>'PrendaController@destroy',
+		 	'as'	=>'Prenda.destroy'
 		 	]);
-	  	Route::get('productos/{id}/edit',
-		 	['uses' =>'ProductController@edit',
-		 	'as'	=>'productos.edit'
+		Route::get('prenda/busqueda',
+		 	['uses' =>'PrendaController@search',
+		 	'as'	=>'Prenda.search'
 		 	]);
+		Route::get('prenda/busqueda/resultados',
+		 	['uses' =>'PrendaController@results',
+		 	'as'	=>'Prenda.results'
+		 	]);
+	  	Route::get('prenda/{id}/edit',
+		 	['uses' =>'PrendaController@edit',
+		 	'as'	=>'Prenda.edit'
+		 	]);
+	  	
 	    
 	});
 

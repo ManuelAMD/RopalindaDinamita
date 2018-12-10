@@ -22,9 +22,9 @@
   			<option value="Mexico">+52</option>
 		</select>
 		<input type="text" id="celular" name="celular" required=""><br><br>
-		<input type="date" name="bday" min="1930-01-02" id="nacimiento" required=""><br><br>
+		<input type="date" name="bday" min="1930-01-02" id="nacimiento" required=""> 
 		<input type="radio" name="gender" value="h" checked id="h" >
-		<label for="h" id="hombre">Hombre</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label for="h" id="hombre">Hombre</label>
         <input type="radio" name="gender" value="m" id="m">
         <label for="m" id="mujer">Mujer</label>
 	</div>
