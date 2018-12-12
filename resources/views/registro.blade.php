@@ -9,7 +9,7 @@
 		<label for="">Contraseña</label><br><br>
 		<label for="">Nombre(s)</label><br><br>
 		<label for="">Apellido(s)</label><br><br>
-		<label for="">Numero de celular</label><br><br>
+		<label for="">Número de celular</label><br><br>
 		<label for="">Fecha de nacimiento</label><br><br>
 		<label for="">Sexo</label><br>
 	</div>

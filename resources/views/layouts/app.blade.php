@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('img/principal.jpg') }}">
     <link rel="stylesheet" href="{{ asset('css/prendaper.css') }}">
+    
 
 </head>
 <body style="background: #E4E4E4">
     <header>
+        @if (Auth::guest())
         <a href="{{ route('registro') }}" id="registro">Registrarse</a>
+        @endif
+        @if (Auth::User())
         <img id="carrito" src="img/carrito.png" alt="">
+        @endif
     </header>
     <ul style="background: #242323" id="banner">
         <a href="{{ route('principal') }}">
@@ -29,9 +34,8 @@
             <li><a href="#">Personalizar</a></li>
             @if (Auth::guest())
                 <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
-                
-            @else
-                <li><a href="{{ route('info') }}">Información de usuario</a></li>
+            
+            @elseif (Auth::User()->type==1111)
                 <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
             @endif
         </ul>
