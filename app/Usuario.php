@@ -32,7 +32,7 @@ class Usuario extends Model
 		DB::statement('RegistroUsuario ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',$values);
 	}
 
-	  protected  $table  ='User_table';
+	  protected  $table  ='Usuario';
 
     /**
      * The attributes that are mass assignable.
@@ -40,7 +40,7 @@ class Usuario extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'rfc', 'lastname', 'name', 'cp' ,'street', 'numExterior', 'numInterior', 'cellphone', 'birthdate', 'country', 'state', 'municipallity', 'email', 'sexo', 'tipo',
+        'UsuarioID','correo', 'contraseña', 'rfc', 'nombre', 'apellido','celular',
     ];
 
     /**
@@ -49,6 +49,6 @@ class Usuario extends Model
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'contraseña', 'remember_token',
     ];
 }

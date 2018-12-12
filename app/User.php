@@ -18,7 +18,7 @@ class User extends Model//Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'rfc', 'lastname', 'name', 'cp' ,'street', 'numExterior', 'numInterior', 'cellphone', 'birthdate', 'country', 'state', 'municipallity', 'email', 'sexo', 'tipo',
+        'UsuarioID','correo', 'contraseña', 'rfc', 'nombre', 'apellido','celular',
     ];
 
     /**
@@ -27,6 +27,6 @@ class User extends Model//Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'contraseña', 'remember_token',
     ];
 }
