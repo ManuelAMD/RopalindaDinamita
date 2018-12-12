@@ -23,13 +23,13 @@ class LoginController extends Controller
     {
     	$credentials = $this->validate(request(),[
     		$this->username() => 'required|string',
-    		'contraseña' => 'required|string'
-    	]); 
-		if(!Auth::attempt($credentials))
+    		'password' => 'required|string'
+    	]);
+		if(!Auth::attempt($credentials,true))
 		{
-            dd($credentials);
 			return redirect('login');
 		}
+        
     	return redirect('/');
     }
 

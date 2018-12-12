@@ -29,7 +29,6 @@
             <li><a href="#">Personalizar</a></li>
             @if (Auth::guest())
                 <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
-                
             @else
                 <li><a href="{{ route('info') }}">Información de usuario</a></li>
                 <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>

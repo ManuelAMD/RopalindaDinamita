@@ -24,7 +24,7 @@
                         </div>
                         <div class="login2">
                             <label class="clave">Contraseña</label><br>
-                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="contraseña" title="Porfavor ingrese su contraseña" placeholder="******" required class="form-control">
+                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" title="Porfavor ingrese su contraseña" placeholder="******" required class="form-control">
                             <br>
                             @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
