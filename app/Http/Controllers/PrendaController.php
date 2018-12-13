@@ -14,16 +14,21 @@ class prendaController extends Controller
     }
 
 
-    public function search(){
 
-      return view ('Prenda.busqueda');  
+    public function search(){
+        return view ('Prenda.busqueda'); 
+      
+    }
+
+    public function personalize(){
+          return view ('Prenda.prendasper'); 
     }
 
 
 
     public function results(Request $request){
-      $productos=Prenda::name($request->nombre)->
-            orderBy('nombre','DESC')->paginate->();
+      // $productos=Prenda::name($request->nombre)->
+      //orderBy('nombre','DESC')->paginate->();
       return view ('Prenda.menuBusqueda');  
     }
 
@@ -36,60 +41,84 @@ class prendaController extends Controller
 
 
 
-    public function destroy($id){
-      
-      $prenda=prenda::find($id);
-      $prenda->delete();
-      return redirect()->route('Prenda.index');
-        
-     }
-    public function edit($id){
-      $prenda=prenda::find($id);
-      return view ('Prenda.edit')->with('prenda',$prenda);      
-    }
-
-    public function update(Request $request,$id){
+    public function destroy($prendaID){
     
-      $prenda=prenda::find($id);
+        $prenda=prenda::where('prendaID',$prendaID)->first();
 
-      $prenda->nombre=$request->nombre;
-      $prenda->precio=$request->precio;
-      $prenda->descripcion=$request->descripcion;
-      $prenda->categoria=$request->categoria;
-      $prenda->imagenID=$request->imagenID;
-      $prenda->temporada=$request->temporada;      
-     
-     
-      return redirect()->route('Prenda.index');
-    }
-
-
-    public function subeImagen (Request $request ){
-        $this->validate($request,[
-            'select_file'=>
-                'required|image|mimes:jepg,png,jpg,gif|max:2048'
-        ]);
-        $image=$request->file('select_file');
-        $new_name = rand(). '.'.$image->getClientOriginalExtension();
-        $image->move(public_path("images"),$new_name);
-        return back()->with('success','Imagen almacenasa exitosamente')->with ('path',$new_name);
-    }
-
-
-    public function store(Request $request){
-       
-      $hasFile=$request->hasFile('imagenID') && $request->imagenID->isValid();
-      $prenda=new Prenda($request->all()); 
-      $value=[$prenda->nombre,$prenda->precio,$prenda->descripcion,$prenda->categoria,$prenda->imagenID,$prenda->temporada];
-      dd($value);
-     $this->subeImagen($request) ;
-      
-         //DB::statement('RegistroPrenda ?,?,?,?,?,?',$value) );
+        
+        $deletedRows = prenda::where('prendaID',$prendaID)->delete();
+        return redirect()->route('Prenda.index');
           
+       }
+      public function edit($prendaID){
+        $prenda=prenda::where('prendaID',$prendaID)->first();
+        return view ('Prenda.edit')->with('prenda',$prenda);      
+      }
+  
+      public function update(Request $request,$prendaID){
+         /* 
+        $prenda=prenda::where('prendaID',$prendaID)->first();
+        dd($prenda);
+        if($request->imagen==null){
+           
+        }else 
+        {
+        $image=$request->file('imagen');
+        $this->validate($request,[
+             'imagen'=>
+                'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]); 
+        $n=rand();
+        $new_name = $n.'.'.$image->getClientOriginalExtension();
+        $image->move(public_path("images"),$new_name);
+
+
+
+        $prenda->imagen= $new_name = $n.'.'.$image->getClientOriginalExtension();;
+        }
+
+        $prenda->nombre=$request->nombre;
+        $prenda->precio=$request->precio;
+        $prenda->descripcion=$request->descripcion;
+        $prenda->temporada=$request->temporada;
+        $prenda->categoria=$request->categoria;      
+        $prenda->save();
+        return redirect()->route('Prenda.index');*/
+    }
+
+ 
+
+    public function store(Request $request){//ya esta
+       
+     //dd($request->imagenID);
+      $prenda=new Prenda($request->all()); 
+       
+      $image=$request->file('imagen');
+      $this->validate($request,[
+           'imagen'=>
+              'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+      ]); 
+      $n=rand();
+      $new_name = $n.'.'.$image->getClientOriginalExtension();
+      $image->move(public_path("images"),$new_name);
+        
+      $value=[
+          $prenda->nombre,
+          $prenda->precio,
+          $prenda->descripcion,
+          $prenda->categoria,
+          $n.'.'.$image->getClientOriginalExtension(),
+          $prenda->temporada
+
+      ];
+      DB::statement('RegistroPrenda ?,?,?,?,?,?',$value);
+      return redirect()->route('Prenda.index');
       }
 
-    public function index(){
-      $prendas=prenda::orderBy('id','ASC')->paginate(10); 
+
+    public function index(){//no mod solo paginar
+      $prendas=prenda::all(); 
+       
       return view('Prenda.listado')->with('prendas',$prendas); 
      }
 
