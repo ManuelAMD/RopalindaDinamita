@@ -21,9 +21,9 @@
     <header>
         @if (Auth::guest())
         <a href="{{ route('registro') }}" id="registro">Registrarse</a>
-        @endif
-        @if (Auth::User())
-        <img id="carrito" src="img/carrito.png" alt="">
+        @else
+            <a href="" id="registro"></a>
+            <img id="carrito" src="img/carrito.png" alt="">
         @endif
     </header>
     <ul style="background: #242323" id="banner">
@@ -35,10 +35,11 @@
             <li><a href="{{ route('principal') }}">Inicio</a></li>
             <li><a href="#">Catálogo</a></li>
             <li><a href="#">Personalizar</a></li>
+            <!--para el tipo de usuario de hace esto:  Session::get('type')-->
             @if (Auth::guest())
                 <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
             
-            @elseif (Auth::User()->type==1111)
+            @elseif (!Auth::guest())
                 <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
             @endif
         </ul>
