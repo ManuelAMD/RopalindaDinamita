@@ -2,18 +2,30 @@ body{
 	font-family: 'Kodchasan', sans-serif;
 }
 
-header{
-	color: white;
-	font-size: 50px;
-	width: 1450px;
+#registro{
+	font-size: 30px;
+	margin-left: 1020px;
+	margin-top: 50px;
+	text-decoration: none;
+	color:  #7F5886;
 }
 
-header label{
+#banner{
+	font-size: 65px;
+	width: 1349px;
+	margin-top: -20px;
+	display: inline-block;
+}
+
+
+#banner label{
+	margin-bottom: 40px;
 	font-size: 40px;
 }
 
+
 #menu{
-	margin-left: 300px;
+	margin-left: 550px;
 	margin-top: -110px;
 }
 
@@ -23,10 +35,10 @@ header label{
 }
 
 #menu ul li a{
-	color: white;
-	font-size: 30px;
+	color: #939393;
+	font-size: 18px;
 	text-decoration: none;
-	margin-right: 1em;
+	margin-right: 4em;
 }
 
 #h{
@@ -34,4 +46,50 @@ header label{
 	margin-left: 300px;
 	margin-bottom: 30px;
 	color: #2f0557;
+}
+
+header{
+	display: inline-block;
+	max-width: 100px;
+}
+
+#logo{
+	background-color: #242323;
+	width: 200px;
+	margin-top: -40px;
+}
+
+#carrito{
+	margin-left: 1200px;
+	margin-top: -60px;
+	width: 38px;
+}
+
+#footer{
+	display: inline-block;
+	background-color: #242323;
+	width: 1349px;
+	color: #939393
+
+}
+
+#logoF{
+	width: 250px;
+	margin-left: 60px;
+	padding: 50px;
+}
+
+#us{
+	color: #6E459B;
+	font-size: 14px;
+}
+#empresa ul li{
+	list-style:none;
+}
+
+#empresa{
+	margin-left: 430px;
+	margin-top: -130px;
+	text-decoration: none;
+	font-size: 13px;
 }

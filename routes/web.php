@@ -66,11 +66,11 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 		 	['uses' =>'PrendaController@results',
 		 	'as'	=>'Prenda.results'
 		 	]);
+
   		Route::get('prenda/personalize',
 	 	['uses' =>'PrendaController@personalize',
 	 	'as'	=>'Prenda.personalize'
 	 	]);
-	    
 	});
 
 	Route::group(['prefix'=> 'Componentes'],function(){

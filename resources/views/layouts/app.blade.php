@@ -5,25 +5,31 @@
     <meta charset="UTF-8">
     <title>Principal</title>
     <link rel="stylesheet" href="/css/principal.css">
-    <link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Spinnaker" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/registro.css') }}">
     <link rel="stylesheet" href="{{ asset('css/registro2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('img/principal.jpg') }}">
+    <link rel="stylesheet" href="{{ asset('css/prendaper.css') }}">
 
 </head>
-<body style="background: #efe3ed">
-    <header style="background: #a163bd">
-        
-        <label for="">Ropa Linda</label>  
+<body style="background: #E4E4E4">
+    <header>
+        <a href="{{ route('registro') }}" id="registro">Registrarse</a>
+        <img id="carrito" src="img/carrito.png" alt="">
+    </header>
+    <ul style="background: #242323" id="banner">
+        <a href="{{ route('principal') }}">
+        <img id="logo" src="img/logo.png" alt="">
+        </a> 
         <nav id="menu">
         <ul>
             <li><a href="{{ route('principal') }}">Inicio</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Catalogos</a></li>
+            <li><a href="#">Catálogo</a></li>
+            <li><a href="#">Personalizar</a></li>
             @if (Auth::guest())
-                <li><a href="{{ route('login') }}">Iniciar sesion</a></li>
-                <li><a href="{{ route('registro') }}">Registrarse</a></li>
+                <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
+                
             @else
                 <li><a href="{{ route('info') }}">Información de usuario</a></li>
                 <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
@@ -31,8 +37,20 @@
         </ul>
         </nav>
         
-    </header>
+    </ul>
     @yield('content')
+    <footer id="footer">
+        <img src="img/logo.png" alt="" id="logoF">
+        <ul id="empresa" style="list-style:none;">
+            <span id="us">Sobre Nosotros</span>
+            <li>Misión</li>
+            <li>Visión</li>
+            <li>Valores</li>
+            <li>Terminos y condiciones de compra</li><br>
+            <li id="correo">ropalindaDinamita@gmail.com</li>
+        </ul>
+    </footer>
+    
     
 </body>
 </html>

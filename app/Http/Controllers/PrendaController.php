@@ -29,6 +29,7 @@ class prendaController extends Controller
     public function results(Request $request){
       // $productos=Prenda::name($request->nombre)->
       //orderBy('nombre','DESC')->paginate->();
+
       return view ('Prenda.menuBusqueda');  
     }
 
@@ -120,6 +121,11 @@ class prendaController extends Controller
       $prendas=prenda::all(); 
        
       return view('Prenda.listado')->with('prendas',$prendas); 
+     }
+
+     public function personalize(){
+      dd("Hola");
+      return view('prendas.prendasper'); 
      }
 
     
