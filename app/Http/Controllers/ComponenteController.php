@@ -14,25 +14,11 @@ class ComponenteController extends Controller
 
     public function store(Request $request){
     	
-      $Componente=new Componente($request->all()); 
-      $image=$request->file('imagen');
-      $this->validate($request,[
-           'imagen'=>
-              'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-      ]); 
-      $n=rand();
-      $new_name = $n.'.'.$image->getClientOriginalExtension();
-      $image->move(public_path("component"),$new_name);
-        
-      $value=[
-          $Componente->nombre,
-          $Componente->precio,
-          $Componente->descripcion,
-          $n.'.'.$image->getClientOriginalExtension()
-      ];
-      if(DB::statement('RegistrarComponente ?,?,?,?',$value)){
-      	return redirect()->route('Componente.index');
-      }
+       
+        $componente=new Componente();
+        $componente->finalizarRegistroComponente($request);
+        return redirect()->route('Componente.index');
+    
       
       }
 
