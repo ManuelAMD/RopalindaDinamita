@@ -14,4 +14,10 @@
 <script src="js/principal.js"></script>
 
 <span class="vendido">Los mas Vendidos</span>
+<div class="container">
+	@foreach ($prendas as $prenda)
+		{{$prenda->Nombre}}
+	@endforeach
+	</div>
+	{{ $prendas->links() }}
 @endsection
