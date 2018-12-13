@@ -27,7 +27,7 @@
                                 </span>
                             @endif
                             <br>
-                        <button class="btnEntrar" style="background:#a163bd">Entrar</button>
+                        <button class="btnEntrar" style="background:black">Entrar</button>
                     </form>
                         <br>
                         <br>
@@ -36,7 +36,7 @@
                         {{ csrf_field() }} 
                         <div class="registro">
                             <label class="Registra-label">¿Eres Nuevo en RopaLinda?</label><br>
-                            <button id="Registro-btn" style="background: #9c9ea1">Crea tu cuenta</button>
+                            <button id="Registro-btn" style="background: black">Crea tu cuenta</button>
                         </div>
                     </form>
                     </div>
