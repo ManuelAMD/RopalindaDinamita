@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Project;
 
 
-class PrincipalController extends Controller
+class AboutController extends Controller
 {
     public function index()
     {

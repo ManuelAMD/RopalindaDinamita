@@ -21,7 +21,7 @@ class PrincipalController extends Controller
      */
     public function index()
     {
-    	
-        return view('principal');
+    	$prendas=DB::table('Prenda')->select('PrendaID', 'Nombre', 'Precio', 'descripcion', 'temporada', 'imagen', 'categoria')->orderBy('PrendaID','desc')->paginate(10);
+        return view('principal')->with('prendas',$prendas);
     }
 }

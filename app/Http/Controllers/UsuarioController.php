@@ -44,6 +44,5 @@ class UsuarioController extends Controller
       $usuario=Usuario::find($id);
      print_r($usuario);	
   	}
-
 	//f
 }
