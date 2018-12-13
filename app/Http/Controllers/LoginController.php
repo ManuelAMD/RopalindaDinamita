@@ -7,6 +7,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Session;
 
 class LoginController extends Controller
 {
@@ -29,6 +30,17 @@ class LoginController extends Controller
 		{
 			return redirect('login');
 		}
+        $values=[Auth::User()->correo,Auth::User()->password];
+        $result=DB::select('exec LoginRopaLinda ?,?',$values)[0];
+        Session::put('type',head($result));
+        if(head($result)=='111')
+        {
+            $nombre=DB::table('Cliente')->select('rfc', 'nombre', 'apellido', 'celular')->where('correo','=',Auth::User()->correo)->get();
+            Session::put('rfc',$nombre[0]->rfc);
+            Session::put('nombre',$nombre[0]->nombre);
+            Session::put('apellido',$nombre[0]->apellido);
+            Session::put('celular',$nombre[0]->celular);
+        }
     	return redirect('/');
     }
 
@@ -39,6 +51,6 @@ class LoginController extends Controller
     }
     public function username()
     {
-    	return 'email';
+    	return 'correo';
     }
 }

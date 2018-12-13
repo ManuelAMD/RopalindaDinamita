@@ -13,7 +13,7 @@ body{
 #banner{
 	font-size: 65px;
 	width: 1349px;
-	margin-top: -20px;
+	margin-bottom: -10px;
 	display: inline-block;
 }
 
@@ -23,9 +23,56 @@ body{
 	font-size: 40px;
 }
 
+.contenedor{
+	width: 500px;
+	position: relative;
+	height: 280px;
+	
+}
 
+.botones{
+	font-size: 30px;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	border-radius: 50%;
+	background-color: rgba(0,0,0,.7);
+	text-align: center;
+	font-weight: bold;
+	position: absolute;
+	color: #fff;
+	box-shadow: 0 0 10px rgba(255,255,255,.6);
+	-webkit-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+
+}
+
+#imagen{
+	width: 1200px;
+	margin-right: 900px;
+	height: 200px;
+}
+.botones:hover{
+	cursor: pointer;
+	transform: scale(1.2,1.2);
+}
+
+.atras{
+	left: 2%;
+	top: calc(50%-70%);
+	margin-top: 90px;
+	margin-left: 70px;
+}
+
+.adelante{
+	right: 2%
+	top:calc(50% - 70%);
+	margin-top: 70px;
+	margin-left: 1190px;
+}
 #menu{
-	margin-left: 550px;
+	margin-left: 850px;
 	margin-top: -110px;
 }
 
@@ -38,7 +85,7 @@ body{
 	color: #939393;
 	font-size: 18px;
 	text-decoration: none;
-	margin-right: 4em;
+	margin-right: 20px;
 }
 
 #h{
@@ -65,12 +112,12 @@ header{
 	width: 38px;
 }
 
-#footer{
+.footer{
 	display: inline-block;
 	background-color: #242323;
 	width: 1349px;
 	color: #939393
-
+	
 }
 
 #logoF{
@@ -92,4 +139,36 @@ header{
 	margin-top: -130px;
 	text-decoration: none;
 	font-size: 13px;
+}
+
+.vendido{
+	color: black;
+	font-size: 2em;
+	margin-top: -200px;
+}
+
+#menu li a{
+	text-decoration: none;
+	font-size: 30px;
+	margin: auto;
+	padding: 10px 15px;
+	display: block;
+}
+
+#menu > li{
+	float: left;
+}
+
+.submenu li a:hover{
+	background-color: #434343;
+}
+
+.submenu li ul{
+	display: none ;
+	position: absolute;
+	min-width: 140px;
+}
+
+#menu li:hover > ul{
+	display: block;
 }

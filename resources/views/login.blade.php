@@ -9,7 +9,7 @@
                     <div class="login">
                         <div class="correo-grupo">
                             <label class="correo">Correo electrónico</label><br>
-                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="ejemplo@gmail.com" required autofocus value="{{old('email')}}">
+                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="correo" placeholder="ejemplo@gmail.com" required autofocus value="{{old('email')}}">
                             <br>
                              @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                         <br>
                         <br>
                         </div>
-                    <form action="{{route('registro')}}" method="POST">
+                    <form action="{{route('create')}}" method="POST">
                         {{ csrf_field() }} 
                         <div class="registro">
                             <label class="Registra-label">¿Eres Nuevo en RopaLinda?</label><br>

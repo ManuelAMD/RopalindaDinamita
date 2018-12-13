@@ -122,8 +122,5 @@ class prendaController extends Controller
        
       return view('Prenda.listado')->with('prendas',$prendas); 
      }
-
-      
-
     
 }
