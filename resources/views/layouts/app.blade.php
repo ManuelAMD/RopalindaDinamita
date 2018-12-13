@@ -20,9 +20,8 @@
 <body style="background: #E4E4E4">
     <header>
         @if (Auth::guest())
-        <a href="{{ route('registro') }}" id="registro">Registrarse</a>
-        @else
-            <a href="" id="registro"></a>
+        <a href="{{ route('create') }}" id="registro">Registrarse</a>
+        @else (Session::get(type)=='1111')
             <img id="carrito" src="img/carrito.png" alt="">
         @endif
     </header>
@@ -34,13 +33,41 @@
         <ul>
             <li><a href="{{ route('principal') }}">Inicio</a></li>
             <li><a href="#">Catálogo</a></li>
-            <li><a href="#">Personalizar</a></li>
             <!--para el tipo de usuario de hace esto:  Session::get('type')-->
             @if (Auth::guest())
-                <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
+            <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
             
-            @elseif (!Auth::guest())
-                <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
+            @elseif (Session::get('type') =='999')
+            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Administrador <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{route('home')}}">Usuarios</a></li>
+                    <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>        
+                </ul>
+            </li>
+            @elseif (Session::get('type') =='444')
+                <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Diseñador<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{route('prendas/Prenda/create')}}">Registrar Prenda</a></li>
+                            <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>        
+                        </ul>
+                
+            @elseif (Session::get('type') =='111')
+                       <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{Session::get('nombre')}} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{route('home')}}">Mis Prendas</a></li>
+                            <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>        
+                        </ul>
+                    </li>
+                    
             @endif
         </ul>
         </nav>

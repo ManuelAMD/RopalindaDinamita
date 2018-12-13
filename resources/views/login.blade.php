@@ -32,7 +32,7 @@
                         <br>
                         <br>
                         </div>
-                    <form action="{{route('registro')}}" method="POST">
+                    <form action="{{route('create')}}" method="POST">
                         {{ csrf_field() }} 
                         <div class="registro">
                             <label class="Registra-label">¿Eres Nuevo en RopaLinda?</label><br>
