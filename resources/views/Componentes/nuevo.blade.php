@@ -3,13 +3,13 @@
 @section('content')
 
   
-    {!! Form::open(['route'=>'Prenda.store','method'=>'POST','files'=>true]) !!}
+    {!! Form::open(['route'=>'Componente.store','method'=>'POST','files'=>true]) !!}
     {{ csrf_field() }}
 
             
 
       <div class="datos">
-
+        <h1  align="center">Registro de componente</h1>
         <div class="form-group">
             {!! Form::label('nombre','Nombre')!!}
             {!! Form::text('nombre',null, ['class'=>'form-control','placeholder'=>'Nombre','required'])!!}
@@ -26,16 +26,8 @@
             {!! Form::label('imagenID','Imagen borrar')!!}
             {!! Form::file('imagen')!!}
         </div>
-        <div class="form-group">
-            {!! Form::label('temporada','Temporada')!!}
-            {!! Form::select('temporada', array('1'=>'Primavera','2'=>'Verano','3'=>'Otoño','4'=>'Invierno'));!!}
-        </div>
-        
-        <div class="form-group">
-            {!! Form::label('categoria','Categoría')!!}
-            {!! Form::select('categoria', array('0'=>'Superior','1'=>'Inferior ','3'=>'Accesorio'));!!}
-        </div>
-         {!! Form::submit('Registrar articulo') !!}
+         
+         {!! Form::submit('Registrar componente') !!}
           {!! Form::reset('limpiar formulario') !!}
        </div>
         

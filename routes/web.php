@@ -66,15 +66,31 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 		 	['uses' =>'PrendaController@results',
 		 	'as'	=>'Prenda.results'
 		 	]);
-	  	Route::get('prenda/{id}/edit',
-		 	['uses' =>'PrendaController@edit',
-		 	'as'	=>'Prenda.edit'
+
+  		Route::get('prenda/personalize',
+	 	['uses' =>'PrendaController@personalize',
+	 	'as'	=>'Prenda.personalize'
+	 	]);
+	});
+
+	Route::group(['prefix'=> 'Componentes'],function(){
+		Route::resource('Componente','ComponenteController');
+		Route::get('componentes/{id}/destroy',
+		 	['uses' =>'ComponenteController@destroy',
+		 	'as'	=>'Componente.destroy'
 		 	]);
-	  	Route::get('prenda/personalize',
-	    	['uses' =>'PrendaController@personalize',
-		 	'as'	=>'Prenda.personalize'
+		Route::get('componentes/busqueda',
+		 	['uses' =>'ComponenteController@search',
+		 	'as'	=>'Componente.search'
+		 	]);
+		Route::get('componente/busqueda/resultados',
+		 	['uses' =>'ComponenteController@results',
+		 	'as'	=>'Componente.results'
 		 	]);
 	});
+
+
+
 
 
 	Route::get('/send','MailController@send');
