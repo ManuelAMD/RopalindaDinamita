@@ -33,7 +33,7 @@
         
         <div class="form-group">
             {!! Form::label('categoria','Categoría')!!}
-            {!! Form::select('categoria', array('0'=>'Superior','1'=>'Inferior ','3'=>'Accesorio'));!!}
+            {!! Form::select('categoria', array('0'=>'Superior','1'=>'Inferior '));!!}
         </div>
          {!! Form::submit('Registrar articulo') !!}
           {!! Form::reset('limpiar formulario') !!}

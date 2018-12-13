@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Componente extends Model
+class PrendComp extends Model
 {
-    protected  $table = "Componente";
+    protected  $table = "PrendaComponente";
     public $timestamps = false;
-    protected  $fillable = ['componenteID','nombre','precio','descripcion','imagen'];
+    protected  $fillable = ['prendaID','componenteID'];
 
     
 

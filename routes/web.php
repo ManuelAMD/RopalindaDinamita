@@ -20,7 +20,7 @@ Route::get('/login', function () {
 });
 
 Route::get('/registro', function () {
-    return view('registro');
+    return view('registro');	
 });
 
 Route::get('/registro2', function () {
@@ -83,7 +83,7 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 		 	['uses' =>'ComponenteController@search',
 		 	'as'	=>'Componente.search'
 		 	]);
-		Route::get('componente/busqueda/resultados',
+		Route::get('componentes/busqueda/resultados',
 		 	['uses' =>'ComponenteController@results',
 		 	'as'	=>'Componente.results'
 		 	]);
@@ -96,7 +96,15 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 	Route::get('/send','MailController@send');
 	Route::group(['prefix'=> 'Admin'],function(){
 		Route::resource('usuarios','UsuarioController');
-		 
+		Route::resource('prospecto','ProspectoController');
+		Route::get('prospecto/{correo}/rechazar',
+		 	['uses' =>'ProspectoController@rechazar',
+		 	'as'	=>'prospecto.rechazar'
+		 	]);
+		Route::get('prospecto/{correo}/aceptar',
+		 	['uses' =>'ProspectoController@aceptar',
+		 	'as'	=>'prospecto.aceptar'
+		 	]);
 	    
 	});
 //--f
