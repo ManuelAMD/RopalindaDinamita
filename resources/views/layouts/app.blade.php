@@ -21,7 +21,8 @@
     <header>
         @if (Auth::guest())
         <a href="{{ route('create') }}" id="registro">Registrarse</a>
-        @else (Session::get(type)=='1111')
+        @elseif (Session::get('type') =='111')
+            <a href="" id="registro"></a>
             <img id="carrito" src="img/carrito.png" alt="">
         @endif
     </header>
@@ -39,13 +40,13 @@
             
             @elseif (Session::get('type') =='999')
             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Administrador <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{route('home')}}">Usuarios</a></li>
-                    <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>        
-                </ul>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    Administrador <span class="caret"></span>
+                </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{route('home')}}">Usuarios</a></li>
+                        <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>        
+                    </ul>
             </li>
             @elseif (Session::get('type') =='444')
                 <li class="dropdown">
@@ -53,16 +54,16 @@
                                 Diseñador<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{route('prendas/Prenda/create')}}">Registrar Prenda</a></li>
+                            <li><a href="{{route('home')}}">Registrar Prenda</a></li>
                             <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>        
                         </ul>
-                
+                </li>
             @elseif (Session::get('type') =='111')
-                       <li class="dropdown">
+                    <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{Session::get('nombre')}} <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu" role="menu">
+                        <ul class="dropdown-menu" role="menu">
                             <li><a href="{{route('home')}}">Mis Prendas</a></li>
                             <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>        
                         </ul>
@@ -73,7 +74,7 @@
         </nav>
         
     </ul>
-    <br>
+    
     @yield('content')
     <br>
     <footer class="footer">
