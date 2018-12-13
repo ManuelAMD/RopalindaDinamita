@@ -123,10 +123,5 @@ class prendaController extends Controller
       return view('Prenda.listado')->with('prendas',$prendas); 
      }
 
-     public function personalize(){
-      dd("Hola");
-      return view('prendas.prendasper'); 
-     }
-
     
 }

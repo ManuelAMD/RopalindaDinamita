@@ -31,8 +31,16 @@ class LoginController extends Controller
 			return redirect('login');
 		}
         $values=[Auth::User()->correo,Auth::User()->password];
-        $result=DB::select('exec LoginRopaLinda ?,?',$values);
-        Session::put('type',$result);
+        $result=DB::select('exec LoginRopaLinda ?,?',$values)[0];
+        Session::put('type',head($result));
+        if(head($result)=='111')
+        {
+            $nombre=DB::table('Cliente')->select('rfc', 'nombre', 'apellido', 'celular')->where('correo','=',Auth::User()->correo)->get();
+            Session::put('rfc',$nombre[0]->rfc);
+            Session::put('nombre',$nombre[0]->nombre);
+            Session::put('apellido',$nombre[0]->apellido);
+            Session::put('celular',$nombre[0]->celular);
+        }
     	return redirect('/');
     }
 

@@ -16,18 +16,9 @@ class UsuarioController extends Controller
 {	
 	public function indexRegistro()
 	{
-		return view('registro');
+		return view('create');
 	}
-	public function registrarParte(Request $request)
-	{
-		$request->flash();//Guarda la información de este regiatro.	
-		return view('registro2');
-	}
-	public function create(Request $request)
-	{
-		$request->flash();//Guarda la información de este regiatro.	
-		return view('registro2');
-	}
+	
 	public function registrarTotal(Request $request)
 	{
 		$usuario = new Usuario;
