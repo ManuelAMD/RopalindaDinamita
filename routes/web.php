@@ -112,6 +112,7 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 
 Route::post('/login','LoginController@log')->name('login');
 Route::post('/create', 'UsuarioController@indexRegistro')->name('create');
+Route::get('/componente', 'PrendaController@componentes')->name('component');
 //Route::post('/autorizaciones', 'autorizacionesController@index')->name('autorizaciones');   descomentar
 Route::post('/registrar', 'UsuarioController@registrarTotal')->name('finish');
 Route::get('/info',function(){
