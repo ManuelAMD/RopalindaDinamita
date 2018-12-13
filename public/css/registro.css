@@ -22,7 +22,7 @@ body{
 
 #cuadros-datos{
 	margin-left: 520px;
-	margin-top: -360px;
+	margin-top: -375px;
 
 }
 
@@ -36,35 +36,15 @@ select{
 
 #celular{
 	font-size: 33px;
-	width: 415px;
-}
-
-#h{
-	width: 20px;
-	height: 20px;
-}
-
-#m{
-	width: 20px;
-	height: 20px;
-}
-
-#hombre{
-	font-size: 35px;
-}
-
-#mujer{
-	font-size: 35px;
 }
 
 #siguiente{
-	background: #a163bd;
+	background: #242323;
 	color: white;
 	margin-left: 1000px;
 	font-size: 35px;
-	margin-top: -50px;
+	margin-top: 50px;
 	width: 250px;
-	font-family: 'Kodchasan', sans-serif;
 }
 
 
