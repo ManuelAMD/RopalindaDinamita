@@ -51,7 +51,6 @@ class ComponenteController extends Controller
     public function destroy($componenteID){
     	 
     	$deletedRows = Componente::where('componenteID',$componenteID)->delete();
-      dd($componenteID);
-      	return view ('Componentes.listado');  
+      return view ('Componentes.listado');  
     }
 }

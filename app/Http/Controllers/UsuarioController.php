@@ -18,6 +18,10 @@ class UsuarioController extends Controller
 	{
 		return view('registro');
 	}
+	public function show()
+	{
+		 
+	}
 	public function registrarParte(Request $request)
 	{
 		$request->flash();//Guarda la información de este regiatro.	
