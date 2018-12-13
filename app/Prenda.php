@@ -8,7 +8,6 @@ use Image;
 use DB;
 use App\prenda;
 use App\componente;
- 
 class Prenda extends Model
 {
     protected  $table = "Prenda";
@@ -46,7 +45,15 @@ class Prenda extends Model
 
 	}
 
-
+	public function getComponentes($id){
+		$componentes=DB::table('PrendaComponente')->select('ComponenteID')->where('PrendaID','=',$id)->get();
+		$todoComponentes=array();
+		foreach ($componentes as $componente) {
+			$compo = DB::table('Componente')->select('ComponenteID','nombre','precio','descripcion')->where('ComponenteID','=',$componente->ComponenteID)->get()[0];
+			$todoComponentes[]=$compo;
+		}
+		return $todoComponentes;
+	}
 
 }
 

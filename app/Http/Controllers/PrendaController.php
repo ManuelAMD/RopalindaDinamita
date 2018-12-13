@@ -112,5 +112,10 @@ class prendaController extends Controller
        
       return view('Prenda.listado')->with('prendas',$prendas); 
      }
-    
+    public function componentes(Request $request){
+      $prenda = new Prenda;
+      $id=4;
+      $componentes = $prenda->getComponentes($id);
+      return view('componentes')->with('componentes',$componentes);
+    }
 }
