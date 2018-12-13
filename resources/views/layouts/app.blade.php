@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('img/principal.jpg') }}">
     <link rel="stylesheet" href="{{ asset('css/prendaper.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/principal.js')}}">
+    <link rel="stylesheet" href="{{ asset('img/slide2.png') }}">
+    <link rel="stylesheet" href="{{ asset('img/slide3.png') }}">
     
 
 </head>
@@ -42,8 +45,10 @@
         </nav>
         
     </ul>
+    <br>
     @yield('content')
-    <footer id="footer">
+    <br>
+    <footer class="footer">
         <img src="img/logo.png" alt="" id="logoF">
         <ul id="empresa" style="list-style:none;">
             <span id="us">Sobre Nosotros</span>
