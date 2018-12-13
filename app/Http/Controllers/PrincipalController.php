@@ -21,7 +21,6 @@ class PrincipalController extends Controller
      */
     public function index()
     {
-    	dd(Auth::User());
         return view('principal');
     }
 }

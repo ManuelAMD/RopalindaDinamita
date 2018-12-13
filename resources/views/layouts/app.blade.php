@@ -19,7 +19,7 @@
         <img id="carrito" src="img/carrito.png" alt="">
     </header>
     <ul style="background: #242323" id="banner">
-        <a href="{{ route('principal') }}">
+        <a href="{{ route('principal') }}" id="prin">
         <img id="logo" src="img/logo.png" alt="">
         </a> 
         <nav id="menu">
@@ -50,6 +50,8 @@
         </ul>
     </footer>
     
-    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 </body>
 </html>

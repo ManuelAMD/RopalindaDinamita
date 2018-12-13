@@ -7,6 +7,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Session;
 
 class LoginController extends Controller
 {
@@ -29,7 +30,7 @@ class LoginController extends Controller
 		{
 			return redirect('login');
 		}
-        
+        Session::put('t','aaaa');
     	return redirect('/');
     }
 
@@ -41,5 +42,9 @@ class LoginController extends Controller
     public function username()
     {
     	return 'correo';
+    }
+    protected function guard()
+    {
+        return Auth::guard('api');
     }
 }

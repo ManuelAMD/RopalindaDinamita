@@ -88,7 +88,6 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 
 Route::post('/login','LoginController@log')->name('login');
 Route::post('/registros/registro', 'UsuarioController@indexRegistro')->name('registro');
-Route::post('/registros/registro2', 'UsuarioController@registrarParte')->name('registro2');
 //Route::post('/autorizaciones', 'autorizacionesController@index')->name('autorizaciones');   descomentar
 Route::post('/registros/registrar', 'UsuarioController@registrarTotal')->name('finish');
 Route::get('/info',function(){

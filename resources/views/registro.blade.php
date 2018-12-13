@@ -2,7 +2,7 @@
 
 @section('content')
 	<span id="cuenta">Crear cuenta</span>
-	<form id="table-form" action="{{route('registro2')}}" method="POST">
+	<form id="table-form" action="{{route('finish')}}" method="POST">
         {{ csrf_field ()}}
 	<div class="datos">
 		<label for="">Correo electrónico</label><br><br>
@@ -29,4 +29,5 @@
         <label for="m" id="mujer">Mujer</label>
 	</div>
 	<button id="siguiente" >Siguiente</button>
+	</form>
 @endsection

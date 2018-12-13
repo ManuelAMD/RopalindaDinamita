@@ -45,12 +45,7 @@
                         </div>
                     </form>
                     </div>
-        </center></div>
-            </div>
-        </div>
-    </div>
-    
-</div>
+        </center>
 
 @endsection
 
