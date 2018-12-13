@@ -67,9 +67,13 @@ Route::get('/principal', 'PrincipalController@index')->name('principal');
 		 	'as'	=>'Prenda.results'
 		 	]);
 
-  		Route::get('prenda/personalize',
-	 	['uses' =>'PrendaController@personalize',
-	 	'as'	=>'Prenda.personalize'
+  		Route::get('prenda/asignar',
+	 	['uses' =>'PrendaController@asignar',
+	 	'as'	=>'Prenda.asignar'
+	 	]);
+	 	Route::PuT('prenda/AsignarComponentePrenda',
+	 	['uses' =>'PrendaController@AsignarComponentePrenda',
+	 	'as'	=>'Prenda.AsignarComponentePrenda'
 	 	]);
 	});
 
