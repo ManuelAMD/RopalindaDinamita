@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Image;
 use Illuminate\Http\Request;
 use App\prenda;
+use App\componente;
 use DB;
 
 class prendaController extends Controller
@@ -14,14 +15,51 @@ class prendaController extends Controller
     }
 
 
-
     public function search(){
         return view ('Prenda.busqueda'); 
       
     }
+     public function AsignarComponentePrenda(Request $request ){
+      $p=$request->all();
+      unset($p['_method']);
+      unset($p['_token']);
+      $keys = array_keys($p);
+      $array=array();
+      $array2=array();
+      $i=0;
+      foreach ($p as $d) {
+        if (  (substr($keys[$i], 0, 1))=='C') {
+                $array2[]=$d;
+                
+        }  
+        if (  (substr($keys[$i], 0, 1))=='P') {
+                $array[]=$d;
+                
+        }      
+        $i++;;  
+      }
 
-    public function personalize(){
-          return view ('Prenda.prendasper'); 
+
+
+
+
+
+      foreach ($array as $prenda) {
+        foreach ($array2 as $componente) {
+            $values=[$prenda,$componente];
+              DB::statement('AsignarPrendasComponentes ?,?',$values);
+        }
+      }
+     return redirect()->route('Prenda.asignar');
+      
+      
+    }
+    
+
+    public function asignar(){
+          $prendas=prenda::all();
+          $componentes=Componente::all();
+          return view ('Prenda.asignacionPC')->with('componentes',$componentes)->with('prendas',$prendas); 
     }
 
 
@@ -43,8 +81,7 @@ class prendaController extends Controller
 
 
     public function destroy($prendaID){
-    
-        $prenda=prenda::where('prendaID',$prendaID)->first();
+      
 
         
         $deletedRows = prenda::where('prendaID',$prendaID)->delete();
@@ -57,62 +94,15 @@ class prendaController extends Controller
       }
   
       public function update(Request $request,$prendaID){
-         /* 
-        $prenda=prenda::where('prendaID',$prendaID)->first();
-        dd($prenda);
-        if($request->imagen==null){
-           
-        }else 
-        {
-        $image=$request->file('imagen');
-        $this->validate($request,[
-             'imagen'=>
-                'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]); 
-        $n=rand();
-        $new_name = $n.'.'.$image->getClientOriginalExtension();
-        $image->move(public_path("images"),$new_name);
-
-
-
-        $prenda->imagen= $new_name = $n.'.'.$image->getClientOriginalExtension();;
-        }
-
-        $prenda->nombre=$request->nombre;
-        $prenda->precio=$request->precio;
-        $prenda->descripcion=$request->descripcion;
-        $prenda->temporada=$request->temporada;
-        $prenda->categoria=$request->categoria;      
-        $prenda->save();
-        return redirect()->route('Prenda.index');*/
+        
     }
 
  
 
     public function store(Request $request){//ya esta
        
-     //dd($request->imagenID);
-      $prenda=new Prenda($request->all()); 
-       
-      $image=$request->file('imagen');
-      $this->validate($request,[
-           'imagen'=>
-              'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-      ]); 
-      $n=rand();
-      $new_name = $n.'.'.$image->getClientOriginalExtension();
-      $image->move(public_path("images"),$new_name);
-        
-      $value=[
-          $prenda->nombre,
-          $prenda->precio,
-          $prenda->descripcion,
-          $prenda->categoria,
-          $n.'.'.$image->getClientOriginalExtension(),
-          $prenda->temporada
-
-      ];
-      DB::statement('RegistroPrenda ?,?,?,?,?,?',$value);
+      $prenda=new Prenda();
+      $prenda->FinalizarRegistroPrenda($request);
       return redirect()->route('Prenda.index');
       }
 
